@@ -4,48 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahasiswa</title>
+    <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="cssSkkm.css">
-    <style>
-      *{
-        box-sizing: border-box;
-      }
-      .isi-content{
-        display: flex ;
-      }
-
-      nav{
-        width: 100%;
-      }
-
-      .navbar a{
-        display: flex;
-        align-items: center;
-      }
-
-      .side-judul{
-        padding-left: 1rem;
-      }
-
-      .side-judul span{
-        padding-left: 0.5rem;
-      }
-
-      .card-box{
-        padding-left: 2rem;
-      }
-
-      .card-content{
-        display: flex;
-        /* justify-content: space-evenly; */
-        flex-wrap: wrap;
-        width: 100%;
-        padding: 5rem;
-      }
-
-    </style>
+    <link rel="stylesheet" href="asset/style/style.css">
 </head>
+
 <body>
   <nav class="navbar" style="background-color: #e3f2fd;">
     <nav class="navbar bg-body-tertiary">
@@ -83,9 +46,15 @@
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link link-body-emphasis">
+          <a href="dashboard.html" class="nav-link link-body-emphasis">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+            Approved Kegiatan
+          </a>
+        </li>
+        <li>
+          <a href="datamahasiswa.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            Ajukan SKKM
+            Data Mahasiswa
           </a>
         </li>
         <li>
@@ -102,7 +71,7 @@
           <strong>mdo</strong>
         </a>
         <ul class="dropdown-menu text-small shadow">
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
         </ul>
       </div>
     </div>

@@ -1,42 +1,46 @@
 <?php
-error_reporting(0);
+error_reporting(0); // Untuk menyembunyikan pesan error, tapi sebaiknya dihindari di lingkungan produksi
 session_start();
 $host_db    = "localhost";
 $user_db    = "root";
 $pass_db    = "";
-$nama_db    = "db_skkm";
-$koneksi    = mysqli_connect($host_db,$user_db,$pass_db,$nama_db);
-// atur variabel
+$nama_db    = "db_sikm";
+$koneksi    = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
+
 $err        = "";
 $username   = "";
 
-if(isset( $_POST["username"], $_POST["password"] )) {
-    $username   = $_POST['username'];
-    $password   = $_POST['password'];
 
-    if($username == '' or $password == ''){
-        $err .= "<script>alert('Username / Password tidak boleh kosong')</script>";
-        echo $err;
+if (isset($_POST["username"], $_POST["password"])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if ($username == '' or $password == '') {
+        $err = "Username / Password tidak boleh kosong";
     } else {
-        $sql1 = "select * from db_akun where username = '$username'";
-        $q1   = mysqli_query($koneksi,$sql1);
-        $r1   = mysqli_fetch_array($q1);
+        $sql1 = "SELECT * FROM mahasiswa WHERE nrp = '$username' AND password = '$password'";
+        $sql2 = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
+        
+        $q1 = mysqli_query($koneksi, $sql1);
+        $q2 = mysqli_query($koneksi, $sql2);
 
-        if($r1['username'] == ''){
-            $err .= "<script>alert('Username tidak tersedia')</script>";
-            echo $err;
-        }elseif($r1['password'] != md5($password)){
-            $err .= "<script>alert('Password salah')</script>";
-            echo $err;
-        } else {
+        if (mysqli_num_rows($q1) > 0) {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
+            // Kasih akses role agar akses terbatas hanya ke page yang sesuai dengan hak aksesnya
             header("location: ./mahasiswa");
+        } elseif (mysqli_num_rows($q2) > 0) {
+            $_SESSION["username"] = $username;
+            $_SESSION["password"] = $password;
+            header("location: ./admin");
+        } else {
+            $err = "Username atau Password yang anda masukkan salah";
         }
     }
-
+    echo "<script>alert('$err');</script>";
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

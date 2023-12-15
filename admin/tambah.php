@@ -29,7 +29,7 @@
     $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
 
     //menyimpan gambar ke dalam folder
-    move_uploaded_file($tmp_nama_gambar,'asset/foto/'.$nama_gambar);
+    move_uploaded_file($tmp_nama_gambar,'../asset/foto/'.$nama_gambar);
 
     //echo $nama_gambar;
 

@@ -34,13 +34,13 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="index.php" class="nav-link active">
+          <a href="index.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
             Dashboard
           </a>
         </li>
         <li>
-          <a href="informasi.php" class="nav-link link-body-emphasis">
+          <a href="informasi.php" class="nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Informasi SKKM
           </a>

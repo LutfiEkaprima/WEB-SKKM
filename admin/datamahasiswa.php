@@ -22,7 +22,7 @@
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 88vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto;">
       <div class="side-judul">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -40,13 +40,13 @@
           </a>
         </li>
         <li>
-          <a href="dashboard.html" class="nav-link link-body-emphasis">
+          <a href="informasi.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Informasi SKKM
           </a>
         </li>
         <li>
-          <a href="dashboard.html" class="nav-link link-body-emphasis">
+          <a href="pengajuan.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Approved Kegiatan
           </a>
@@ -58,7 +58,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link link-body-emphasis">
+          <a href="profile.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
           </a>
@@ -77,27 +77,26 @@
     </div>
 
     <section class="data_mhs">
-        <h4>Data Mahasiswa</h4>
-        <nav>
-            <a href="create.php">Create Data</a>
-        </nav>
+      <h4>Data Mahasiswa</h4>
+      <nav>
+        <a class="btn btn-primary" href="create.php" role="button">Tambahkan Data Mahasiswa</a>
+      </nav>
 
-        <?php
-            // inisialisasi koneksi db
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "db_sikm";
+      <?php
+        // inisialisasi koneksi db
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "db_sikm";
 
-            //pembuatan koneksi db
-            $conn = new mysqli($servername,$username,$password,$dbname);
+        //pembuatan koneksi db
+        $conn = new mysqli($servername,$username,$password,$dbname);
 
-            //pengecekan koneksi db
-            if($conn -> connect_error){
-                die("connection Failed" . $conn -> connect_error);
-            }
-
-        ?>
+        //pengecekan koneksi db
+        if($conn -> connect_error){
+          die("connection Failed" . $conn -> connect_error);
+        }
+      ?>
         
         <table class="table align-middle">
             <thead>
@@ -116,47 +115,44 @@
             </thead>
             <tbody class="table-body">
               <?php
-                  $sqlQuery = "SELECT * FROM mahasiswa";
-                  $result = $conn->query($sqlQuery);
+                $sqlQuery = "SELECT * FROM mahasiswa";
+                $result = $conn->query($sqlQuery);
 
-                  if ($result->num_rows > 0) {
-                  // output data of each row
-                  while($row = $result->fetch_assoc()) {
-                      echo"
-                      <tr> 
-                          <td>".$row["id_mhs"]."</td>
-                          <td>".$row["nrp"]."</td>
-                          <td>".$row["nama"]."</td>
-                          <td>".$row["jurusan"]."</td>
-                          <td>".$row["semester"]."</td>
-                          <td>".$row["alamat"]."</td>
-                          <td>
-                              <div>
-                                  <img src='asset/foto/".$row["foto"]."'>
-                              </div>
-                          </td>
-                          <td>".$row["tgl_lahir"]."</td>
-                          <td>".$row["nilai"]."</td>
-                          <td>
-                              <div>
-                                  <a href='read.php?id=".$row["id_mhs"]."'>Read</a>
-                                  <a href='update.php?id=".$row["id_mhs"]."'>Update</a>
-                              </div>
-                          </td>
-                      </tr>";
+                if ($result->num_rows > 0) {
+                // output data of each row
+                while($row = $result->fetch_assoc()) {
+                  echo"
+                    <tr> 
+                      <td>".$row["id_mhs"]."</td>
+                      <td>".$row["nrp"]."</td>
+                      <td>".$row["nama"]."</td>
+                      <td>".$row["jurusan"]."</td>
+                      <td>".$row["semester"]."</td>
+                      <td>".$row["alamat"]."</td>
+                      <td>
+                        <div>
+                          <img src='../asset/foto/".$row["foto"]."'>
+                        </div>
+                      </td>
+                      <td>".$row["tgl_lahir"]."</td>
+                      <td>".$row["nilai"]."</td>
+                      <td>
+                        <div>
+                          <a href='read.php?id=".$row["id_mhs"]."'>Read</a>
+                          <a href='update.php?id=".$row["id_mhs"]."'>Update</a>
+                        </div>
+                      </td>
+                    </tr>";
                   }
                   } else {
                   echo "0 results";
                   }
-                  ?>
+              ?>
             </tbody>
         </table>
-        
-
-
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

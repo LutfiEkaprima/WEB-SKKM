@@ -98,59 +98,7 @@
             }
 
         ?>
-        <!-- <table width = "100%" border=0>
-            <thead bgcolor = "orange">
-                <tr>
-                    <td>Id</td>
-                    <td>NRP</td>
-                    <td>Nama</td>
-                    <td>Jurusan</td>
-                    <td>Semester</td>
-                    <td>Alamat</td>
-                    <td>Foto</td>
-                    <td>Tgl-Lahir</td>
-                    <td>Nilai</td>
-                    <td>Aksi</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // $sqlQuery = "SELECT * FROM mahasiswa";
-                // $result = $conn->query($sqlQuery);
-
-                // if ($result->num_rows > 0) {
-                // // output data of each row
-                // while($row = $result->fetch_assoc()) {
-                //     echo"
-                //     <tr> 
-                //         <td>".$row["id_mhs"]."</td>
-                //         <td>".$row["nrp"]."</td>
-                //         <td>".$row["nama"]."</td>
-                //         <td>".$row["jurusan"]."</td>
-                //         <td>".$row["semester"]."</td>
-                //         <td>".$row["alamat"]."</td>
-                //         <td>
-                //             <div>
-                //                 <img src='asset/foto/".$row["foto"]."'>
-                //             </div>
-                //         </td>
-                //         <td>".$row["tgl_lahir"]."</td>
-                //         <td>".$row["nilai"]."</td>
-                //         <td>
-                //             <div>
-                //                 <a href='read.php?id=".$row["id_mhs"]."'>Read</a>
-                //                 <a href='update.php?id=".$row["id_mhs"]."'>Update</a>
-                //             </div>
-                //         </td>
-                //     </tr>";
-                // }
-                // } else {
-                // echo "0 results";
-                // }
-                ?>
-            </tbody>
-        </table> -->
-
+        
         <table class="table align-middle">
             <thead>
               <tr>

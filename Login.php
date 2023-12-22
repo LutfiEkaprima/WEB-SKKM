@@ -27,11 +27,12 @@ if (isset($_POST["username"], $_POST["password"])) {
         if (mysqli_num_rows($q1) > 0) {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
-            // Kasih akses role agar akses terbatas hanya ke page yang sesuai dengan hak aksesnya
-            header("location: ./mahasiswa");
+            $_SESSION["role"] = "mahasiswa"; // Menambahkan informasi peran
+            header("location: ./mahasiswa?nrp=$username");
         } elseif (mysqli_num_rows($q2) > 0) {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
+            $_SESSION["role"] = "admin"; // Menambahkan informasi peran
             header("location: ./admin");
         } else {
             $err = "Username atau Password yang anda masukkan salah";

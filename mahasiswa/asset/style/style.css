@@ -1,0 +1,40 @@
+*{
+    box-sizing: border-box;
+}
+
+.isi-content {
+    display: flex;
+}
+
+nav{
+    width: 100%;
+}
+
+.navbar a{
+    display: flex;
+    align-items: center;
+}
+
+.side-judul{
+    padding-left: 1rem;
+}
+
+.side-judul span{
+    padding-left: 0.5rem;
+}
+
+.card-box{
+    padding-left: 2rem;
+}
+
+.card-content{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 5rem;
+}
+
+.pengajuan-form {
+    width: 100%;
+    padding: 5rem;
+  }

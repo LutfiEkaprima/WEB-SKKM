@@ -1,3 +1,9 @@
+<?php
+
+include "role.php"
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,43 +82,14 @@
       </div>
     </div>
 
-    <div class="card-content">
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+    <div class="embed-content">
+      <h1>INFORMASI POINT SKKM</h1>
+      <embed src="../asset/img/infoskkm.pdf" type="" width="800" height="800">
     </div>
+
   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

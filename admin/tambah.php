@@ -1,18 +1,7 @@
 <?php
 
-    // inisialisasi koneksi db
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "db_sikm";
-
-    //pembuatan koneksi db
-    $conn = new mysqli($servername,$username,$password,$dbname);
-
-    //pengecekan koneksi db
-    if($conn -> connect_error){
-        die("connection Failed" . $conn -> connect_error);
-    }
+    //memanggil file koneksi.php
+    include "../koneksi.php";
 
     //tangkap input user
     $nrp = $_POST['nrp'];
@@ -37,7 +26,7 @@
     $querySQL = "INSERT INTO mahasiswa(nrp,nama,jurusan,semester,alamat,password,tgl_lahir,nilai,foto) VALUES ('$nrp','$nama','$jurusan','$semester','$alamat','$password','$tgl_lahir','$nilai','$nama_gambar')";
 
     //mengeksekusi query
-    $hasil = $conn->query($querySQL);
+    $hasil = $koneksi->query($querySQL);
 
     //kembali ke halaman index
     header('Location: datamahasiswa.php');

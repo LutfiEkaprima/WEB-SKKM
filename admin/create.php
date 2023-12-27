@@ -1,3 +1,8 @@
+<?php
+
+include "role.php"
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

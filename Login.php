@@ -1,11 +1,8 @@
 <?php
 error_reporting(0); // Untuk menyembunyikan pesan error, tapi sebaiknya dihindari di lingkungan produksi
 session_start();
-$host_db    = "localhost";
-$user_db    = "root";
-$pass_db    = "";
-$nama_db    = "db_sikm";
-$koneksi    = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
+
+include "koneksi.php";
 
 $err        = "";
 $username   = "";
@@ -27,12 +24,12 @@ if (isset($_POST["username"], $_POST["password"])) {
         if (mysqli_num_rows($q1) > 0) {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
-            $_SESSION["role"] = "mahasiswa"; // Menambahkan informasi peran
+            $_SESSION["role"] = 'mahasiswa'; // Menambahkan informasi peran
             header("location: ./mahasiswa?nrp=$username");
         } elseif (mysqli_num_rows($q2) > 0) {
             $_SESSION["username"] = $username;
             $_SESSION["password"] = $password;
-            $_SESSION["role"] = "admin"; // Menambahkan informasi peran
+            $_SESSION["role"] = 'admin'; // Menambahkan informasi peran
             header("location: ./admin");
         } else {
             $err = "Username atau Password yang anda masukkan salah";

@@ -2,7 +2,14 @@
     box-sizing: border-box;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .isi-content{
+    min-height: 100vh;
     display: flex ;
 }
 
@@ -44,4 +51,14 @@ nav{
 .data_mhs img{
     height: 200px;
     width: 200px;
+}
+
+embed {
+    padding: 20px;
+    width: 100vh;
+    height: 100vh
+}
+
+.embed-content {
+    width: auto;   
 }

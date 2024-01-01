@@ -1,6 +1,6 @@
 <?php
 
-include "role.php"
+include "role.php";
 
 ?>
 
@@ -10,24 +10,26 @@ include "role.php"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Tambah Data Mahasiswa</title>
-
-    <style>
-        form{
-            width: 20%;
-            padding: 2rem;
-        }
-        .form-data{
-            width: 30%;
-        }
-    </style>
+    <link rel="stylesheet" href="asset/style/style.css">
+    <title>Admin - Tambah Data Mahasiswa</title>
+    
 </head>
 <body>
-    <header>
-        <h1>Halaman Tambah Data</h1>
+    <nav class="navbar" style="background-color: #e3f2fd;">
+        <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+            <img src="./asset/img/iti.png" alt="Logo" width="75" height="75" class="d-inline-block align-text-center">
+            <span class="fs-1"><span class="me-5"></span>Institut Teknologi Indonesia</span>
+            </a>
+        </div>
+        </nav>
+    </nav>
+    <header class="judul-tbhdata">
+        <h1>Halaman Tambah Data Mahasiswa</h1>
     </header>
 
-    <form class="form-data" method="post" action="tambah.php" enctype="multipart/form-data">
+    <form class="form-data1" method="post" action="tambah.php" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nrp" class="form-label">NRP</label>
             <input type="text" name="nrp" class="form-control" id="nrp" placeholder="NRP">
@@ -38,7 +40,19 @@ include "role.php"
         </div>
         <div class="mb-3">
             <label for="nama" class="form-label">Jurusan</label>
-            <input type="text" name="jurusan" class="form-control" id="jurusan" placeholder="Jurusan">
+            <select class="form-select" id="jurusan" name="jurusan">
+                <option selected disabled>Jurusan</option>
+                <option value="Teknik Informatika">Teknik Informatika</option>
+                <option value="Teknik Sipil">Teknik Sipil</option>
+                <option value="Teknik Industri">Teknik Industri</option>
+                <option value="Teknik Mesin">Teknik Mesin</option>
+                <option value="Teknik Kimia">Teknik Kimia</option>
+                <option value="Teknik Elektro">Teknik Elektro</option>
+                <option value="Arsitektur">Arsitektur</option>
+                <option value="Perencanaan Wilayah Dan Kota">Perencanaan Wilayah Dan Kota</option>
+                <option value="Teknologi Industri Pertanian">Teknologi Industri Pertanian</option>
+                <option value="Manajemen">Manajemen</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="semester" class="form-label">Semester</label>
@@ -47,10 +61,10 @@ include "role.php"
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="3">4</option>
-                <option value="3">5</option>
-                <option value="3">6</option>
-                <option value="3">7</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
             </select>
         </div>
         <div class="mb-3">
@@ -63,11 +77,11 @@ include "role.php"
         </div>
         <div class="mb-3">
             <label for="nilai" class="form-label">Nilai</label>
-            <input type="text" name="nilai"class="form-control" id="nilai" placeholder="nilai" value="0">
+            <input type="text" name="nilai"class="form-control" id="nilai" placeholder="nilai" value="0" aria-label="Disabled input example" disabled>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password"class="form-control" id="password" placeholder="password" value="">
+            <input type="password" name="password"class="form-control" id="password" placeholder="password">
         </div>
         <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>
@@ -77,6 +91,17 @@ include "role.php"
             <button class="btn btn-primary" type="submit">Submit form</button>
         </div>
     </form>
+
+    <div class="footer">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+          <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+        </a>
+        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+      </div>
+    </footer>
+  </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -1,9 +1,11 @@
 <?php
-
+include '../koneksi.php';
 include "role.php";
 
+$nrp = $row1['nrp'];
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,13 +60,13 @@ include "role.php";
           </a>
         </li>
         <li>
-          <a href="pengajuan.php" class="nav-link link-body-emphasis">
+          <a href="pengajuan.php" class="nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
             Ajukan Kegiatan
           </a>
         </li>
         <li>
-          <a href="Profilmahasiswa.php" class="nav-link active">
+          <a href="Profilmahasiswa.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
           </a>
@@ -82,38 +84,59 @@ include "role.php";
       </div>
     </div>
 
-    <div class="card-content">
-      <div class="card-box">
-      <div class="card" style="width: 18rem;">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-            <h5 class="card-title">Status Kegiatan</h5>
-            <a href="statusmahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+    <section class="data_mhs">
+      <h4>Data Mahasiswa</h4>
+      <nav>
+        <a class="btn btn-primary" href="pengajuanmahasiswa.php" role="button">Ajukan Sertifikat</a>
+      </nav>
 
-      <div class="card-box">
-      <div class="card" style="width: 18rem">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Nilai Kegiatan</h5>
-            <a href="nilaimahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+        <table class="table align-middle text-center">
+            <thead>
+              <tr>
+                <th scope="col">NRP</th>
+                <th scope="col">Nama Kegiatan</th>
+                <th scope="col">Bnetuk Kegiatan</th>
+                <th scope="col">Tingkatan</th>
+                <th scope="col">Tanggal Pengajuan</th>
+                <th scope="col">Nilai</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <?php
+                $sqlQuery = "SELECT * from pengajuan where nrp='$nrp'";
+                $result = $koneksi->query($sqlQuery);
 
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="asset/img/jumlahkegiatan.png" class="card-img-top" alt="jumlahkegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href="jumlahkegiatan.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+                        FROM pengajuan
+                        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
+                        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan";
+
+                $result = $koneksi->query($sql);
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row['nrp'] . "</td>";
+                        echo "<td>" . $row['nama_kegiatan'] . "</td>";
+                        echo "<td>" . $row['bentuk_kegiatan'] . "</td>";
+                        echo "<td>" . $row['tingkatan'] . "</td>";
+                        echo "<td>" . $row['tanggal_pengajuan'] . "</td>";
+                        echo "<td>" . $row['nilai'] . "</td>";
+                        $status = ($row['status'] == 0) ? "Belum Disetujui" : "Disetujui";
+                        echo "<td>" . $status . "</td>"; 
+                        echo "</tr>";
+                    }
+
+                    echo "</table>";
+                } else {
+                    echo "Tidak ada data pengajuan";
+                }
+              ?>
+            </tbody>
+        </table>
+
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

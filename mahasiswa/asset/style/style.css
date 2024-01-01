@@ -37,4 +37,19 @@ nav{
 .pengajuan-form {
     width: 100%;
     padding: 5rem;
-  }
+}
+
+embed {
+    padding: 25px;
+    width: 100vh;
+    height: 100vh
+}
+
+.embed-content {
+    padding: 20px;
+    width: 100%;   
+}
+
+.embed-content h1 {
+    text-align: center;
+}

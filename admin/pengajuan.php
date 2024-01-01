@@ -1,6 +1,30 @@
 <?php
 
-include "role.php"
+include "role.php";
+include "../koneksi.php";
+
+if (isset($_GET['op'])) {
+  $op = $_GET['op'];
+} else {
+  $op = "";
+}
+
+if($op == "setuju"){
+  $id = $_GET['id'];
+
+  $querySQL = "Select * FROM pengajuan WHERE id_pengajuan = '$id'";
+  $hasil = $koneksi->query($querySQL);
+  $rowcek = $hasil->fetch_assoc();
+
+  $querySQL12 = "UPDATE mahasiswa SET nilai = nilai + '{$rowcek['nilai']}' WHERE nrp = '{$rowcek['nrp']}'";
+  $querySQL = "UPDATE pengajuan SET status = 1 WHERE id_pengajuan = '$id'";
+  $hasil = $koneksi->query($querySQL);
+  $hasil = $koneksi->query($querySQL12);
+} else if($op == "tolak"){
+  $id = $_GET['id'];
+  $querySQL = "UPDATE pengajuan SET status = 2 WHERE id_pengajuan = '$id'";
+  $hasil = $koneksi->query($querySQL);
+}
 
 ?>
 
@@ -10,19 +34,36 @@ include "role.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin - Pengajuan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="asset/style/style.css">
 </head>
 
 <body>
-  <nav class="navbar" style="background-color: #e3f2fd;">
+<nav class="navbar" style="background-color: #e3f2fd;">
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="./asset/img/iti.png" alt="Logo" width="75" height="75" class="d-inline-block align-text-center">
           <span class="fs-1"><span class="me-5"></span>Institut Teknologi Indonesia</span>
         </a>
+        <button type="button" onclick="location.href='pengajuan.php'" class="btn btn-primary position-relative">
+          Inbox
+            <?php
+              $querySQL = "SELECT COUNT(*) as total FROM pengajuan where status = 0";
+              $result = $koneksi->query($querySQL);
+              $row = $result->fetch_assoc();
+              $totalData = $row['total'];
+              if ($totalData > 0) {
+                echo "<span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>";
+                echo "<span class='visually-hidden'>unread messages</span>";
+                echo $totalData;
+                echo "</span>";
+              }
+            ?>
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
       </div>
     </nav>
   </nav>
@@ -64,6 +105,12 @@ include "role.php"
           </a>
         </li>
         <li>
+          <a href="datapka.php" class="nav-link link-body-emphasis">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+            Data PKA
+          </a>
+        </li>
+        <li>
           <a href="profile.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
@@ -73,8 +120,11 @@ include "role.php"
       <hr>
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle me-2" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+          <strong><?php echo $row1['nama'] ?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow">
           <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
@@ -82,43 +132,79 @@ include "role.php"
       </div>
     </div>
 
-    <div class="card-content">
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+    <section class="data_mhs">
+      <h4>Pengajuan Nilai SKKM</h4>
+      <br>
+        <table class="table align-middle">
+            <thead>
+              <tr>
+                <th scope="col">Id Pengajuan</th>
+                <th scope="col">NRP</th>
+                <th scope="col">Nama Kegiatan</th>
+                <th scope="col">Bentuk Kegiatan</th>
+                <th scope="col">Tingkatan</th>
+                <th scope="col">Tanggal Pengajuan</th>
+                <th scope="col">Nilai</th>
+                <th scope="col">Status</th>
+                <th scope="col">Sertifikat</th>
+                <th scope="col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <?php
+                $sql = "SELECT pengajuan.id_pengajuan, pengajuan.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+                FROM pengajuan
+                INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan
+                where status = 0";
 
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href=""><p class="card-text">Lihat Detail <i class="bi bi-chevron-double-right" ></i></p></a>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+                $result = $koneksi->query($sql);
+                if ($result->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result->fetch_assoc()) {
+                    $status = ($row['status'] == 0) ? "Belum Disetujui" : "Disetujui";
+                    echo"
+                      <tr> 
+                        <td>".$row["id_pengajuan"]."</td>
+                        <td>".$row["nrp"]."</td>
+                        <td>".$row["nama_kegiatan"]."</td>
+                        <td>".$row["bentuk_kegiatan"]."</td>
+                        <td>".$row["tingkatan"]."</td>
+                        <td>".$row["tanggal_pengajuan"]."</td>
+                        <td>".$row["nilai"]."</td>
+                        <td>" . $status . "</td>
+                        <td>
+                          <div> 
+                            <a class='btn btn-primary' role='button' href='readsertif.php?id=".$row["id_pengajuan"]."'>Lihat Sertifikat</a>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <a class='btn btn-success' role='button' onclick='return confirm(\"Setujui Pengajuan?\")' href='pengajuan.php?op=setuju&id=".$row["id_pengajuan"]."'>Setujui</a>
+                            <a class='btn btn-warning' role='button' onclick='return confirm(\"Tolak Pengajuan?\")' href='pengajuan.php?op=tolak&id=".$row["id_pengajuan"]."'>Tolak</a>
+                          </div>
+                        </td>
+                      </tr>";
+                  }
+                }
+              ?>
+            </tbody>
+        </table>
+    </section>
     </div>
   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <div class="footer">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+          <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+        </a>
+        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

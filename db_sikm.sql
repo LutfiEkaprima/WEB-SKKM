@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Des 2023 pada 02.12
+-- Waktu pembuatan: 01 Jan 2024 pada 17.12
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -32,15 +32,16 @@ CREATE TABLE `admin` (
   `username` varchar(50) NOT NULL,
   `password` varchar(20) NOT NULL,
   `jabatan` varchar(255) NOT NULL,
-  `foto` varchar(255) NOT NULL
+  `foto` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`idadmin`, `username`, `password`, `jabatan`, `foto`) VALUES
-(1, 'admin', 'admin', 'PKA', 'img.jpg');
+INSERT INTO `admin` (`idadmin`, `username`, `password`, `jabatan`, `foto`, `nama`) VALUES
+(1, 'admin', 'admin', 'PKA', 'img.jpg', 'abdi');
 
 -- --------------------------------------------------------
 
@@ -152,9 +153,61 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`id_mhs`, `nrp`, `nama`, `jurusan`, `semester`, `alamat`, `foto`, `tgl_lahir`, `password`, `nilai`) VALUES
-(1, 1152200006, 'Lutfi Ekaprima Jannata', 'Teknik Informatika', 3, 'Perumahan Legok Indah', 'img.png', '2003-12-22', 'siakadtest', 0),
-(2, 1152200005, 'Muhammad Fahreza', 'Teknik Informatika', 3, 'Setu', 'img.png', '2004-03-16', '1234', 0),
-(3, 1152200007, 'Alexander Budi', 'Teknik Informatika', 3, 'Perancis ujung dikit', '', '2004-06-27', 'didikan', 0);
+(31, 1152200006, 'Lutfi Ekaprima Jannata', 'Teknik Informatika', 3, 'Perumahan Legok Indah', 'Hitori Gotoh.jpeg', '2003-01-22', 'lutfi123', 80);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengajuan`
+--
+
+CREATE TABLE `pengajuan` (
+  `id_pengajuan` int(11) NOT NULL,
+  `nrp` int(16) DEFAULT NULL,
+  `id_jnskegiatan` int(11) DEFAULT NULL,
+  `status` int(3) DEFAULT NULL,
+  `tanggal_pengajuan` date DEFAULT NULL,
+  `nilai` int(3) NOT NULL,
+  `foto` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id_pengajuan`, `nrp`, `id_jnskegiatan`, `status`, `tanggal_pengajuan`, `nilai`, `foto`) VALUES
+(1, 1152200006, 1, 1, '2024-01-01', 25, ''),
+(2, 1152200006, 1, 1, '2024-01-01', 20, ''),
+(3, 1152200006, 14, 2, '2024-01-01', 20, ''),
+(4, 1152200006, 63, 2, '2024-01-01', 10, ''),
+(5, 1152200006, 48, 1, '2024-01-01', 30, '111123.JPG'),
+(6, 1152200006, 51, 2, '2024-01-01', 25, '1678189237144.jpg'),
+(7, 1152200006, 45, 1, '2024-01-01', 30, 'ab9fc248a1905231ecdafbc963df64c6.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pka`
+--
+
+CREATE TABLE `pka` (
+  `idpka` int(11) NOT NULL,
+  `jabatan` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pka`
+--
+
+INSERT INTO `pka` (`idpka`, `jabatan`, `nama`, `username`, `password`, `foto`, `tgl_lahir`, `email`, `alamat`) VALUES
+(10, 'Budi', 'Budianto', 'budi123', 'budi23', '{The Villainess is gone}.jpeg', '2024-01-02', 'budia@gmail.com', 'Perum');
 
 --
 -- Indexes for dumped tables
@@ -178,7 +231,22 @@ ALTER TABLE `jenis_kegiatan`
 --
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id_mhs`),
-  ADD UNIQUE KEY `nrp` (`nrp`);
+  ADD UNIQUE KEY `nrp` (`nrp`),
+  ADD KEY `nilai` (`nilai`);
+
+--
+-- Indeks untuk tabel `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  ADD PRIMARY KEY (`id_pengajuan`),
+  ADD KEY `nrp` (`nrp`),
+  ADD KEY `id_jnskegiatan` (`id_jnskegiatan`);
+
+--
+-- Indeks untuk tabel `pka`
+--
+ALTER TABLE `pka`
+  ADD PRIMARY KEY (`idpka`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -200,7 +268,30 @@ ALTER TABLE `jenis_kegiatan`
 -- AUTO_INCREMENT untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mhs` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_mhs` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT untuk tabel `pka`
+--
+ALTER TABLE `pka`
+  MODIFY `idpka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  ADD CONSTRAINT `pengajuan_ibfk_1` FOREIGN KEY (`nrp`) REFERENCES `mahasiswa` (`nrp`),
+  ADD CONSTRAINT `pengajuan_ibfk_2` FOREIGN KEY (`id_jnskegiatan`) REFERENCES `jenis_kegiatan` (`id_jnskegiatan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

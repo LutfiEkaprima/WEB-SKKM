@@ -46,7 +46,7 @@ include "role.php";
           </a>
         </li>
         <li>
-          <a href="informasi.php" class="nav-link link-body-emphasis">
+          <a href="informasi.php" class="nav-link active">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Informasi SKKM
           </a>
@@ -64,7 +64,7 @@ include "role.php";
           </a>
         </li>
         <li>
-          <a href="Profilmahasiswa.php" class="nav-link active">
+          <a href="Profilmahasiswa.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
           </a>
@@ -81,38 +81,12 @@ include "role.php";
         </ul>
       </div>
     </div>
-
-    <div class="card-content">
-      <div class="card-box">
-      <div class="card" style="width: 18rem;">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-            <h5 class="card-title">Status Kegiatan</h5>
-            <a href="statusmahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-      <div class="card" style="width: 18rem">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Nilai Kegiatan</h5>
-            <a href="nilaimahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="asset/img/jumlahkegiatan.png" class="card-img-top" alt="jumlahkegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href="jumlahkegiatan.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+    
+    <div class="embed-content">
+      <h1>INFORMASI NILAI SKKM</h1>
+      <embed src="../asset/img/infoskkm.pdf" type="">
     </div>
+    
   </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

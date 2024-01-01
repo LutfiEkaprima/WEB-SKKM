@@ -2,7 +2,6 @@
 
 include "role.php";
 
-$nrp = $_SESSION['username'];
 
 ?>
 
@@ -47,13 +46,19 @@ $nrp = $_SESSION['username'];
           </a>
         </li>
         <li>
+          <a href="informasi.php" class="nav-link link-body-emphasis">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+            Informasi SKKM
+          </a>
+        </li>
+        <li>
           <a href="Sertifikatmahasiswa.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Sertifikat
           </a>
         </li>
         <li>
-          <a href="pengajuanmahasiswa.php?nrp=<?php echo $nrp;?>" class="nav-link link-body-emphasis">
+          <a href="pengajuan.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
             Ajukan Kegiatan
           </a>
@@ -68,8 +73,8 @@ $nrp = $_SESSION['username'];
       <hr>
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+          <img src="../asset/foto/mhs/<?php echo $row1['foto']?>" alt="" width="32" height="32" class="rounded-circle me-2">
+          <strong><?php echo $row1['nama']?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow">
           <li><a class="dropdown-item" href="logout.php">Sign out</a></li>

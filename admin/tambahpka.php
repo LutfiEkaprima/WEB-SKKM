@@ -1,20 +1,19 @@
 <?php
     include "../koneksi.php";
 
-    $nrp = $_POST['nrp'];
     $nama = $_POST['nama'];
-    $jurusan = $_POST['jurusan'];
-    $semester = $_POST['semester'];
+    $jabatan = $_POST['jabatan'];
+    $username = $_POST['username'];
     $alamat = $_POST['alamat'];
     $password = $_POST['password'];
     $tgl_lahir = $_POST['tgl_lahir'];
-    $nilai = $_POST['nilai'];
+    $email = $_POST['email'];
 
     $nama_gambar = $_FILES['foto']['name'];
     $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
-    move_uploaded_file($tmp_nama_gambar,'../asset/foto/mhs/'.$nama_gambar);
+    move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar);
 
-    $querySQL = "INSERT INTO mahasiswa(nrp,nama,jurusan,semester,alamat,password,tgl_lahir,nilai,foto) VALUES ('$nrp','$nama','$jurusan','$semester','$alamat','$password','$tgl_lahir','$nilai','$nama_gambar')";
+    $querySQL = "INSERT INTO pka(nama,jabatan,username,alamat,password,tgl_lahir,email,foto) VALUES ('$nama','$jabatan','$username','$alamat','$password','$tgl_lahir','$email','$nama_gambar')";
 
     try {
         $hasil = $koneksi->query($querySQL);
@@ -23,7 +22,7 @@
             throw new Exception("Terjadi kesalahan. Data tidak dapat disimpan.");
         }
 
-        header('Location: datamahasiswa.php');
+        header('Location: datapka.php');
     } catch (Exception $e) {
         echo '<script>alert("' . $e->getMessage() . '");</script>';
         echo '<script>window.location.href = "create.php";</script>'; 

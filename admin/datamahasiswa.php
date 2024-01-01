@@ -1,6 +1,24 @@
 <?php
 
-include "role.php"
+include "role.php";
+include "../koneksi.php";
+
+if (isset($_GET['op'])) {
+    $op = $_GET['op'];
+} else {
+    $op = "";
+}
+
+if($op == "delete"){
+    $id = $_GET['id'];
+    $foto = $_GET['foto'];
+
+    unlink('../asset/foto/mhs/'.$foto);
+
+    $querySQL = "DELETE FROM mahasiswa WHERE id_mhs = '$id'";
+
+    $hasil = $koneksi->query($querySQL);
+}
 
 ?>
 
@@ -10,22 +28,40 @@ include "role.php"
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin - Data Mahasiswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="asset/style/style.css">
 </head>
 
 <body>
-  <nav class="navbar" style="background-color: #e3f2fd;">
+<nav class="navbar" style="background-color: #e3f2fd;">
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="./asset/img/iti.png" alt="Logo" width="75" height="75" class="d-inline-block align-text-center">
           <span class="fs-1"><span class="me-5"></span>Institut Teknologi Indonesia</span>
         </a>
+        <button type="button" onclick="location.href='pengajuan.php'" class="btn btn-primary position-relative">
+          Inbox
+            <?php
+              $querySQL = "SELECT COUNT(*) as total FROM pengajuan where status = 0";
+              $result = $koneksi->query($querySQL);
+              $row = $result->fetch_assoc();
+              $totalData = $row['total'];
+              if ($totalData > 0) {
+                echo "<span class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'>";
+                echo "<span class='visually-hidden'>unread messages</span>";
+                echo $totalData;
+                echo "</span>";
+              }
+            ?>
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
       </div>
     </nav>
   </nav>
+
 
   <div class="isi-content">
 
@@ -65,6 +101,12 @@ include "role.php"
           </a>
         </li>
         <li>
+          <a href="datapka.php" class="nav-link link-body-emphasis">
+            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+            Data PKA
+          </a>
+        </li>
+        <li>
           <a href="profile.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
@@ -74,8 +116,11 @@ include "role.php"
       <hr>
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle me-2" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+          </svg>
+          <strong><?php echo $row1['nama'] ?></strong>
         </a>
         <ul class="dropdown-menu text-small shadow">
           <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
@@ -89,22 +134,6 @@ include "role.php"
         <a class="btn btn-primary" href="create.php" role="button">Tambahkan Data Mahasiswa</a>
       </nav>
 
-      <?php
-        // inisialisasi koneksi db
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "db_sikm";
-
-        //pembuatan koneksi db
-        $conn = new mysqli($servername,$username,$password,$dbname);
-
-        //pengecekan koneksi db
-        if($conn -> connect_error){
-          die("connection Failed" . $conn -> connect_error);
-        }
-      ?>
-        
         <table class="table align-middle">
             <thead>
               <tr>
@@ -123,7 +152,7 @@ include "role.php"
             <tbody class="table-body">
               <?php
                 $sqlQuery = "SELECT * FROM mahasiswa";
-                $result = $conn->query($sqlQuery);
+                $result = $koneksi->query($sqlQuery);
 
                 if ($result->num_rows > 0) {
                 // output data of each row
@@ -138,28 +167,39 @@ include "role.php"
                       <td>".$row["alamat"]."</td>
                       <td>
                         <div>
-                          <img src='../asset/foto/".$row["foto"]."'>
+                          <img src='../asset/foto/mhs/".$row["foto"]."'>
                         </div>
                       </td>
                       <td>".$row["tgl_lahir"]."</td>
                       <td>".$row["nilai"]."</td>
                       <td>
                         <div>
-                          <a href='read.php?id=".$row["id_mhs"]."'>Read</a>
-                          <a href='update.php?id=".$row["id_mhs"]."'>Update</a>
+                          <a class='btn btn-primary' role='button' href='read.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Read</a>
+                          <a class='btn btn-info' role='button' href='update.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Update</a>
+                          <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datamahasiswa.php?op=delete&id=".$row["id_mhs"]."&nrp=".$row["nrp"]."&foto=".$row["foto"]."'>Delete</a>
                         </div>
                       </td>
                     </tr>";
                   }
-                  } else {
-                  echo "0 results";
-                  }
+                  } 
               ?>
             </tbody>
         </table>
+
     </section>
   </div>
+
+  <div class="footer">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+      <div class="col-md-4 d-flex align-items-center">
+        <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+          <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+        </a>
+        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+      </div>
+    </footer>
+  </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
-
 </html>

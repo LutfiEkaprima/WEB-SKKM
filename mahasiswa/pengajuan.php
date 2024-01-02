@@ -40,7 +40,7 @@ $result = $koneksi->query($sql);
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 88vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary " style="width: 280px; height: auto; min-height:100vh;">
       <div class="side-judul">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -94,18 +94,18 @@ $result = $koneksi->query($sql);
       </div>
     </div>
 
-    <section class="data_mhs">
+    <section class="data_mhs p-5 w-100">
       <h4>Data Mahasiswa</h4>
       <nav>
-        <a class="btn btn-primary" href="pengajuanmahasiswa.php" role="button">Ajukan Sertifikat</a>
+        <a class="btn btn-primary mb-3" href="pengajuanmahasiswa.php" role="button">Ajukan Sertifikat</a>
       </nav>
 
-        <table class="table align-middle text-center">
+        <table class="table align-middle text-center ">
             <thead>
               <tr>
                 <th scope="col">NRP</th>
                 <th scope="col">Nama Kegiatan</th>
-                <th scope="col">Bnetuk Kegiatan</th>
+                <th scope="col">Bentuk Kegiatan</th>
                 <th scope="col">Tingkatan</th>
                 <th scope="col">Tanggal Pengajuan</th>
                 <th scope="col">Nilai</th>

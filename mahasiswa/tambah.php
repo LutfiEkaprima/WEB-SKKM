@@ -1,7 +1,6 @@
 <?php
 
 include '../koneksi.php';
-include "role.php";
 
 
 $nrp = $_POST['nrp'];
@@ -35,7 +34,7 @@ if ($result->num_rows > 0) {
     if ($stmt_insert->execute()) {
         echo "Pengajuan berhasil diajukan!";
     } else {
-        echo "Error: " . $sql_insert . "<br>" . $conn->error;
+        echo "Error: " . $sql_insert . "<br>" . $koneksi->error;
     }
 } else {
     echo "Data kegiatan tidak ditemukan!";

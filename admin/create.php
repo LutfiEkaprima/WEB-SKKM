@@ -85,7 +85,7 @@ include "role.php";
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password"class="form-control" id="password" placeholder="Password">
+            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
         </div>
         <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>

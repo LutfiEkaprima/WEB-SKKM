@@ -23,17 +23,6 @@ nav{
     padding-left: 0.5rem;
 }
 
-.card-box{
-    padding-left: 2rem;
-}
-
-.card-content{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 5rem;
-}
-
 .pengajuan-form {
     width: 100%;
     padding: 5rem;
@@ -52,4 +41,14 @@ embed {
 
 .embed-content h1 {
     text-align: center;
+}
+
+.row{
+    padding: 2rem;
+    display: flex;
+}
+
+.footer-content {
+    width: 100%;
+    padding-left: 20px;
 }

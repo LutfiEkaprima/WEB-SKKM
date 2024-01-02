@@ -1,9 +1,22 @@
 <?php
 
+include '../koneksi.php';
 include "role.php";
 
+$nrp = $row1['nrp'];
+$status = "";
 
+$sqlQuery = "SELECT * from pengajuan where nrp='$nrp'";
+$result = $koneksi->query($sqlQuery);
+
+$sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+        FROM pengajuan
+        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
+        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan";
+
+$result = $koneksi->query($sql);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +41,7 @@ include "role.php";
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 88vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height:100vh;">
       <div class="side-judul">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -82,40 +95,70 @@ include "role.php";
       </div>
     </div>
 
-    <div class="card-content">
-      <div class="card-box">
-      <div class="card" style="width: 18rem;">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-            <h5 class="card-title">Status Kegiatan</h5>
-            <a href="statusmahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
+    
+
+    <div class="col-md-8 offset-lg-1 pb-5 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0 d-flex">
+        <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
+          <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
+          <div>
+            <div>
+              <div class="bg-body rounded-3 shadow-sm mb-4 p-4 d-flex">
+                <div class="d-flex align-items-center mb-4 me-5">
+                <img src="../asset/foto/mhs/<?php echo $row1['foto']?>" class="rounded-circle me-3" width="180" height="180" alt="<?php $row1['nama'] ?>">
+            </div>
+
+            <div>
+              <form class="border-bottom pb-3 pb-lg-4">
+                <div class="row pb-2">
+                  <div class="col-sm-6 mb-4">
+                    <label for="fn" class="form-label fs-base">Nama Lengkap</label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nama'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="sn" class="form-label fs-base">NRP</label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nrp'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="email" class="form-label fs-base">Email address</label>
+                    <input type="email" class="form-control form-control-lg" value="<?php echo $row1['email'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="jurusan" class="form-label fs-base">Jurusan</small></label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['jurusan'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="semester" class="form-label fs-base">Semester</small></label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['semester']?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="tgl_lahir" class="form-label fs-base">Tanggal Lahir</small></label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['tgl_lahir'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-6 mb-4">
+                    <label for="nilai" class="form-label fs-base">Nilai</small></label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nilai'] ?>" disabled>
+                  </div>
+                  <div class="col-sm-12 mb-4">
+                    <label for="alamat" class="form-label fs-base">Alamat</small></label>
+                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['alamat'] ?>" disabled>
+                  </div>
+                </div>
+                <div class="d-flex mb-3">
+                  <a class='btn btn-danger me-4' role='button' href='resetpassword.php?id="<?php echo $row1['id_mhs']?>"'>Ganti Password</a>
+                  <a class='btn btn-primary' role='button' href='update.php?id="<?php echo $row1['id_mhs']?>"'>Ubah Data Diri</a>
+                </div>
+              </form>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
-
-      <div class="card-box">
-      <div class="card" style="width: 18rem">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Nilai Kegiatan</h5>
-            <a href="nilaimahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="asset/img/jumlahkegiatan.png" class="card-img-top" alt="jumlahkegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href="jumlahkegiatan.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

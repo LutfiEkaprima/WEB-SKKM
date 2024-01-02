@@ -1,7 +1,50 @@
 <?php
 
 include "../koneksi.php";
-include "role.php"
+include "role.php";
+
+if (isset($_POST['submit'])) {
+    $passwordlama = $row1['password'];
+    $password_lama = $_POST['passwordlama'];
+    $password_baru = $_POST['passwordbaru'];
+    $konfirmasi_password_baru = $_POST['konfirmasipassword'];
+    $id_admin = $row1['idadmin']; 
+    
+    if ($passwordlama === $password_lama) {
+        if ($password_baru === $konfirmasi_password_baru) {
+            // Proses validasi password lama (disarankan menggunakan metode hashing)
+            // ...
+    
+            $update_query = "UPDATE admin SET password = '$password_baru' WHERE idadmin = '$id_admin'";
+            
+            if ($koneksi->query($update_query) === TRUE) {
+                // Jika password berhasil diubah, tampilkan modal berhasil
+                echo '<script type="text/javascript">
+                  window.onload = function () {
+                    $("#successModal").modal("show");
+                  }
+                </script>';
+                header("Refresh: 2; url=profile.php");
+            }      
+        } else {
+            // Jika password baru dan konfirmasi password tidak cocok, tampilkan modal error
+            echo '<script type="text/javascript">
+              window.onload = function () {
+                $("#konfirModal").modal("show");
+              }
+            </script>';
+        }
+
+    } else {
+        // Jika password baru dan konfirmasi password tidak cocok, tampilkan modal error
+        echo '<script type="text/javascript">
+          window.onload = function () {
+            $("#errorModal").modal("show");
+          }
+        </script>';
+    }
+
+}
 
 
 ?>
@@ -114,42 +157,31 @@ include "role.php"
     <div class="col-md-8 offset-lg-1 pb-5 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0 d-flex">
       <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
         <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
-        <div>
           <div>
-            <div class="bg-body rounded-3 shadow-sm mb-4 p-4 d-flex">
-              <div class="d-flex align-items-center mb-4">
-                <img src="asset/img/management.png" class="rounded-circle me-3" width="180" height="180" alt="Admin">
-          </div>
-
-          <div>
-            <form class="border-bottom pb-3 pb-lg-4">
+            <form class="border-bottom pb-3 pb-lg-4" method="post" action="">
               <div class="row pb-2">
-                <div class="col-sm-6 mb-4">
-                  <label for="fn" class="form-label fs-base">Nama Lengkap</label>
-                  <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nama'] ?>" disabled>
-                </div>
-                <div class="col-sm-6 mb-4">
-                  <label for="sn" class="form-label fs-base">Jabatan</label>
-                  <input type="text" class="form-control form-control-lg" value="<?php echo $row1['jabatan'] ?>" disabled>
-                </div>
-                <div class="col-sm-6 mb-4">
-                  <label for="email" class="form-label fs-base">Email address</label>
-                  <input type="email" class="form-control form-control-lg" value="<?php echo $row1['email'] ?>" disabled>
-                </div>
-                <div class="col-sm-6 mb-4">
-                  <label for="phone" class="form-label fs-base">Phone</small></label>
-                  <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nohp'] ?>" disabled>
-                </div>
                 <div class="col-sm-12 mb-4">
-                  <label for="username" class="form-label fs-base">Username</small></label>
-                  <input type="text" class="form-control form-control-lg" value="<?php echo $row1['username'] ?>" disabled>
+                  <label for="fn" class="form-label fs-base">Password Lama</label>
+                  <input type="password" class="form-control form-control-lg" name="passwordlama">
+                </div>
+                <div class="col-sm-12mb-4">
+                  <label for="sn" class="form-label fs-base">Password Baru</label>
+                  <input type="password" class="form-control form-control-lg" name="passwordbaru">
+                  <br>
+                </div>
+                <div class="col-sm-12mb-4">
+                  <label for="sn" class="form-label fs-base">Masukkan kembali Password Baru</label>
+                  <input type="password" class="form-control form-control-lg " name="konfirmasipassword">
+                  <br>
                 </div>
               </div>
               <div class="d-flex mb-3">
-                <a class='btn btn-danger' role='button' href='resetpassword.php?id="<?php echo $row1['idadmin']?>"'>Ganti Password</a>
+                  <a href="Profile.php" class="btn btn-primary me-4" role="Button">Kembali</a>
+                <button type="submit" name="submit" class='btn btn-danger' role='button'>Ganti Password</button>
               </div>
             </form>
             </div>
+
           </div>
         </div>
 
@@ -158,23 +190,56 @@ include "role.php"
     </div>
   </div>
 
-
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Berhasil</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Berhasil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Password Berhasil Diubah
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          Password Berhasil diubah
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-        </div>
-      </div>
     </div>
-  </div>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Gagal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Password Lama Salah
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="konfirModal" tabindex="-1" aria-labelledby="konfirModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="konfirModalLabel">Gagal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Password baru dan konfirmasi Password Tidak Sama
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
   <div class="footer">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
@@ -189,6 +254,7 @@ include "role.php"
     </footer>
   </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

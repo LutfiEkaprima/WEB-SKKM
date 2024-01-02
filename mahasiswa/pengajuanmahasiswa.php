@@ -30,7 +30,7 @@ include '../koneksi.php';
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 88vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height:100vh;">
       <div class="side-judul">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -146,7 +146,7 @@ include '../koneksi.php';
           </div>
           <div class="mb-3">
             <label for="tgl_pengajuan" class="form-label">Tanggal Pengajuan</label>
-            <input type="date" name="tgl_pengajuan"class="form-control" id="tgl_pengajuan" placeholder="">
+            <input type="date" name="tgl_pengajuan"class="form-control" id="tgl_pengajuan" placeholder="" value="<?php echo date('Y-m-d'); ?>" disabled>
           </div>
           <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>
@@ -169,19 +169,13 @@ include '../koneksi.php';
       namaKegiatanDropdown.addEventListener("change", function() {
         const selectedNamaKegiatan = this.value;
 
-        // Kirim permintaan AJAX ke server dengan nilai selectedNamaKegiatan
-        // Dapatkan opsi yang sesuai untuk bentuk_kegiatan dan tingkatan
-        // Misalnya, Anda dapat menggunakan teknik AJAX dengan PHP untuk memperbarui opsi
-
-        // Contoh penggunaan fetch untuk permintaan AJAX
         fetch(`get_kegiatan_options.php?nama_kegiatan=${selectedNamaKegiatan}`)
           .then(response => response.json())
           .then(data => {
-            // Menghapus opsi yang ada pada dropdown bentuk_kegiatan
+
             bentukKegiatanDropdown.innerHTML = "";
             tingkatanDropdown.innerHTML = "";
 
-            // Menambahkan opsi yang baru sesuai dengan data yang diterima dari server
             data.bentukKegiatanOptions.forEach(option => {
               const optionElement = document.createElement("option");
               optionElement.value = option;

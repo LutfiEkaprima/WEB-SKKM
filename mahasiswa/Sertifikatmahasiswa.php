@@ -26,7 +26,7 @@ include "role.php";
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 88vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height:100vh;">
       <div class="side-judul">
         <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -79,38 +79,41 @@ include "role.php";
         </ul>
       </div>
     </div>
+    
+    <div class="d-flex flex-lg-wrap p-5">
+      <?php
+        $nrp = $row1['nrp'];
+        $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+        FROM pengajuan
+        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
+        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan where pengajuan.nrp = '$nrp' and pengajuan.status = 1";
 
-    <div class="card-content">
-      <div class="card-box">
-      <div class="card" style="width: 18rem;">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-            <h5 class="card-title">Status Kegiatan</h5>
-            <a href="statusmahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+        $result = $koneksi->query($sql);
 
-      <div class="card-box">
-      <div class="card" style="width: 18rem">
-          <img src="asset/img/nilaikegiatan.png" class="card-img-top" alt="nilaikegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Nilai Kegiatan</h5>
-            <a href="nilaimahasiswa.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+        if ($result->num_rows > 0) {
+                  // output data of each row
+          while($row = $result->fetch_assoc()) {
+            echo "
+            <div class='me-5'> 
+              <div class='card' style='width: 20rem;'>
+                <img src='../asset/sertif/". $row['foto'] ."' class='card-img-top' alt='Tidak Ada Gambar' width='200' height='200' >
+                <div class='card-body'>
+                  <h5 class='card-title'>". $row['nama_kegiatan'] ."</h5>
+                  <p class='card-text'>Bentuk Kegiatan : ". $row['bentuk_kegiatan'] ."</p> 
+                  <p class='card-text'>Tingkatan : ". $row['tingkatan'] ."</p>
+                  <a href='#' class='btn btn-primary'>Go somewhere</a>
+                </div>
+              </div>
+            </div>
+            ";
+          }
+        }
 
-      <div class="card-box">
-        <div class="card" style="width: 18rem;">
-          <img src="asset/img/jumlahkegiatan.png" class="card-img-top" alt="jumlahkegiatan.png">
-          <div class="card-body">
-          <h5 class="card-title">Jumlah Kegiatan</h5>
-            <a href="jumlahkegiatan.php" class="px-2 py-1 m-2 btn btn-primary">Click</a>
-          </div>
-        </div>
-      </div>
+      ?>
     </div>
+    
+
+
   </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

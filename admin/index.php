@@ -109,95 +109,115 @@ include "../koneksi.php";
       </div>
     </div>
 
-    <div class="card-content">
-      <div class="card-box">
-        <div class="card bg-info" style="width: 18rem; height: 10rem;">
-          <div class="icon-card">
-            <svg  xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
-              <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5Z"/>
-              <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Mahasiswa</h5>
-            <div class="data-mhs">
+    <div class="row">
+      <div class="col-lg-6 col-xl-3 mb-4">
+      <div class="card bg-primary text-white" style="width: 18rem; height: 10rem; ">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="me-3">
+            <div class="text-white-75 small">Jumlah Mahasiswa</div>
+            <div class="text-lg fw-bold fs-3">
               <?php
                 $querySQL = "SELECT COUNT(*) as total FROM mahasiswa";
                 $result = $koneksi->query($querySQL);
                 $row = $result->fetch_assoc();
                 $totalData = $row['total'];
                 echo $totalData;
-              ?>
+                ?>
             </div>
           </div>
+          <svg  xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+            <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5Z"/>
+            <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z"/>
+          </svg>
         </div>
+          </div>
+          <div class="card-footer d-flex align-items-center justify-content-between small">
+            <a class="text-white stretched-link" href="datamahasiswa.php">Lihat Data</a>
+          <div class="text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+        </div>
+    </div>
       </div>
-
-      <div class="card-box">
-        <div class="card bg-primary" style="width: 18rem; height: 10rem;">
-          <div class="icon-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+      <div class="col-lg-6 col-xl-3 mb-4">
+        <div class="card bg-warning text-white" style="width: 18rem; height: 10rem; ">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="me-3">
+              <div class="text-white-75 small">Jumlah PKA</div>
+              <div class="text-lg fw-bold fs-3">
+                <?php
+                  $querySQL = "SELECT COUNT(*) as total FROM pka";
+                  $result = $koneksi->query($querySQL);
+                  $row = $result->fetch_assoc();
+                  $totalData = $row['total'];
+                  echo $totalData;
+                ?>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg>
           </div>
-          <div class="card-body">
-            <h5 class="card-title">Jumlah PKA</h5>
-            <div class="data-mhs">
-              <?php
-                $querySQL = "SELECT COUNT(*) as total FROM pka";
-                $result = $koneksi->query($querySQL);
-                $row = $result->fetch_assoc();
-                $totalData = $row['total'];
-                echo $totalData;
-              ?>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between small">
+          <a class="text-white stretched-link" href="datapka.php">Lihat Data</a>
+        <div class="text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+        </div>
+    </div>
+      </div>
+      <div class="col-lg-6 col-xl-3 mb-4">
+        <div class="card bg-success text-white" style="width: 18rem; height: 10rem; ">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="me-3">
+              <div class="text-white-75 small">Jumlah Pengajuan</div>
+              <div class="text-lg fw-bold fs-3">
+                <?php
+                  $querySQL = "SELECT COUNT(*) as total FROM Pengajuan";
+                  $result = $koneksi->query($querySQL);
+                  $row = $result->fetch_assoc();
+                  $totalData = $row['total'];
+                  echo $totalData;
+                ?>
+              </div>
             </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-clipboard-check-fill" viewBox="0 0 16 16">
+              <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+              <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm6.854 7.354-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708Z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-footer d-flex align-items-center justify-content-between small">
+          <a class="text-white stretched-link" href="pengajuan.php">Lihat Data</a>
+        <div class="text-white"><svg class="svg-inline--fa fa-angle-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512" data-fa-i2svg=""><path fill="currentColor" d="M246.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L178.7 256 41.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"></path></svg><!-- <i class="fas fa-angle-right"></i> Font Awesome fontawesome.com --></div>
+      </div>
+    </div> 
+      </div>
+      <div class="col-lg-6 col-xl-3 mb-4">
+        <div class="card bg-danger text-white" style="width: 18rem; height: 10rem; ">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="me-3">
+              <div class="text-white-75 small">Jumlah Kegiatan</div>
+              <div class="text-lg fw-bold fs-3">
+                <?php
+                  $querySQL = "SELECT COUNT(*) as total FROM jenis_kegiatan";
+                  $result = $koneksi->query($querySQL);
+                  $row = $result->fetch_assoc();
+                  $totalData = $row['total'];
+                  echo $totalData;
+                ?>
+              </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-person-arms-up" viewBox="0 0 16 16">
+              <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+              <path d="m5.93 6.704-.846 8.451a.768.768 0 0 0 1.523.203l.81-4.865a.59.59 0 0 1 1.165 0l.81 4.865a.768.768 0 0 0 1.523-.203l-.845-8.451A1.492 1.492 0 0 1 10.5 5.5L13 2.284a.796.796 0 0 0-1.239-.998L9.634 3.84a.72.72 0 0 1-.33.235c-.23.074-.665.176-1.304.176-.64 0-1.074-.102-1.305-.176a.72.72 0 0 1-.329-.235L4.239 1.286a.796.796 0 0 0-1.24.998l2.5 3.216c.317.316.475.758.43 1.204Z"/>
+            </svg>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="card-box">
-        <div class="card bg-warning" style="width: 18rem; height: 10rem;">
-          <div class="icon-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Total Pengajuan</h5>
-            <div class="data-mhs">
-              <?php
-                $querySQL = "SELECT COUNT(*) as total FROM pengajuan";
-                $result = $koneksi->query($querySQL);
-                $row = $result->fetch_assoc();
-                $totalData = $row['total'];
-                echo $totalData;
-              ?>
-            </div>
-            <a href="pengajuan.php">Lihat Pengajuan</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <div class="card bg-success" style="width: 18rem; height: 10rem;">
-          <div class="icon-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-            </svg>
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Jumlah Kegiatan</h5>
-            <div class="data-mhs">
-              <?php
-                $querySQL = "SELECT COUNT(*) as total FROM jenis_kegiatan";
-                $result = $koneksi->query($querySQL);
-                $row = $result->fetch_assoc();
-                $totalData = $row['total'];
-                echo $totalData;
-              ?>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

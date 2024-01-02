@@ -30,16 +30,9 @@ nav{
     padding-left: 0.5rem;
 }
 
-.card-box{
-    padding-left: 2rem;
-}
-
-.card-content{
+.row{
+    padding: 2rem;
     display: flex;
-    /* justify-content: space-evenly; */
-    flex-wrap: wrap;
-    width: 100%;
-    padding: 5rem;
 }
 
 .data_mhs {
@@ -126,6 +119,9 @@ th, td {
 
 a {
     text-decoration: none;
-    font-size: 20px;
 }
 
+.card-footer {
+    background-color: transparent;
+    
+}

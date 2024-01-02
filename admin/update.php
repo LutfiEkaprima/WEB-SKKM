@@ -52,9 +52,11 @@ $row = $result->fetch_assoc();
             <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama" value="<?php echo $row['nama']?>">
         </div>
         <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="<?php echo $row['email']?>">
+        </div>
+        <div class="mb-3">
             <label for="nama" class="form-label">Jurusan</label>
-            <!-- <input type="text" name="jurusan" class="form-control" id="jurusan" placeholder="Jurusan"> -->
-            <!-- <label for="semester" class="form-label">Semester</label> -->
             <select class="form-select" id="jurusan" name="jurusan">
                 <option selected disabled>Jurusan</option>
                 <option value="Teknik Informatika" <?php if ($row['jurusan'] === "Teknik Informatika") echo "selected"; ?>>Teknik Informatika</option>
@@ -110,11 +112,13 @@ $row = $result->fetch_assoc();
 
     <div class="footer">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
             <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
             </a>
             <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
         </div>
         </footer>
     </div>

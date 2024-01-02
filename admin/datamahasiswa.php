@@ -18,6 +18,10 @@ if($op == "delete"){
     $querySQL = "DELETE FROM mahasiswa WHERE id_mhs = '$id'";
 
     $hasil = $koneksi->query($querySQL);
+    $status = "Data Berhasil Dihapus";
+} else {
+    $status = "Data Gagal Dihapus";
+
 }
 
 ?>
@@ -31,6 +35,7 @@ if($op == "delete"){
     <title>Admin - Data Mahasiswa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="asset/style/style.css">
+    <script src="asset/javascript/index.js"></script>
 </head>
 
 <body>
@@ -140,6 +145,7 @@ if($op == "delete"){
                 <th scope="col">Id</th>
                 <th scope="col">NRP</th>
                 <th scope="col">Nama</th>
+                <th scope="col">Email</th>
                 <th scope="col">Jurusan</th>
                 <th scope="col">Semester</th>
                 <th scope="col">Alamat</th>
@@ -162,6 +168,7 @@ if($op == "delete"){
                       <td>".$row["id_mhs"]."</td>
                       <td>".$row["nrp"]."</td>
                       <td>".$row["nama"]."</td>
+                      <td>".$row["email"]."</td>
                       <td>".$row["jurusan"]."</td>
                       <td>".$row["semester"]."</td>
                       <td>".$row["alamat"]."</td>
@@ -176,7 +183,7 @@ if($op == "delete"){
                         <div>
                           <a class='btn btn-primary' role='button' href='read.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Read</a>
                           <a class='btn btn-info' role='button' href='update.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Update</a>
-                          <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datamahasiswa.php?op=delete&id=".$row["id_mhs"]."&nrp=".$row["nrp"]."&foto=".$row["foto"]."'>Delete</a>
+                          <a class='btn btn-warning' id='liveToastBtn' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datamahasiswa.php?op=delete&id=".$row["id_mhs"]."&nrp=".$row["nrp"]."&foto=".$row["foto"]."'>Delete</a>
                         </div>
                       </td>
                     </tr>";
@@ -189,13 +196,29 @@ if($op == "delete"){
     </section>
   </div>
 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <img src="..." class="rounded me-2" alt="...">
+        <strong class="me-auto">Notification</strong>
+        <small><?php $status ?></small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-        </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+      <div class="footer-content">
+        <div class="col-md-4 px-2 d-flex align-items-center">
+          <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+        </div>
       </div>
     </footer>
   </div>

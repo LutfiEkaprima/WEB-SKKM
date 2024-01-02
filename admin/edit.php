@@ -9,6 +9,7 @@ $semester = $_POST['semester'];
 $alamat = $_POST['alamat'];
 $password = $_POST['password'];
 $tgl_lahir = $_POST['tgl_lahir'];
+$email = $_POST['email'];
 
 $nama_gambar = $_FILES['foto']['name'];
 $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
@@ -31,10 +32,10 @@ if ($nama_gambar) {
     }
 
     // Buat query untuk update dengan foto baru
-    $querySQL = "UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', jurusan ='$jurusan', semester ='$semester', alamat = '$alamat', password='$password', tgl_lahir='$tgl_lahir', foto = '$nama_gambar' WHERE id_mhs = '$id'";
+    $querySQL = "UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', jurusan ='$jurusan', semester ='$semester', alamat = '$alamat', password='$password', tgl_lahir='$tgl_lahir', email = '$email' , foto = '$nama_gambar' WHERE id_mhs = '$id'";
 } else {
     // Buat query untuk update tanpa mengubah foto
-    $querySQL = "UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', jurusan ='$jurusan', semester ='$semester', alamat = '$alamat', password='$password', tgl_lahir='$tgl_lahir' WHERE id_mhs = '$id'";
+    $querySQL = "UPDATE mahasiswa SET nrp = '$nrp', nama = '$nama', jurusan ='$jurusan', semester ='$semester', alamat = '$alamat', password='$password', tgl_lahir='$tgl_lahir', email = '$email' WHERE id_mhs = '$id'";
 }
 
 $hasil = $koneksi->query($querySQL);

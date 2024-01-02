@@ -39,6 +39,10 @@ include "role.php";
             <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
         </div>
         <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="mb-3">
             <label for="nama" class="form-label">Jurusan</label>
             <select class="form-select" id="jurusan" name="jurusan">
                 <option selected disabled>Jurusan</option>
@@ -81,24 +85,26 @@ include "role.php";
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" name="password"class="form-control" id="password" placeholder="password">
+            <input type="password" name="password"class="form-control" id="password" placeholder="Password">
         </div>
         <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>
-            <input type="file" name="foto" class="form-control" id="foto" placeholder="foto">
+            <input type="file" name="foto" class="form-control" id="foto" placeholder="Foto">
         </div>
         <div class="col-12">
             <button class="btn btn-primary" type="submit">Submit form</button>
         </div>
     </form>
 
-    <div class="footer">
+  <div class="footer">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-        </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+      <div class="footer-content">
+        <div class="col-md-4 px-2 d-flex align-items-center">
+          <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+          </a>
+          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+        </div>
       </div>
     </footer>
   </div>

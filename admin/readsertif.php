@@ -50,7 +50,6 @@ $rowsql = $resultsql->fetch_assoc();
     </nav>
   </nav>
 
-
   <div class="isi-content">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 100vh;">
       <div class="side-judul">
@@ -121,6 +120,20 @@ $rowsql = $resultsql->fetch_assoc();
         <div>
             <a class='btn btn-success' role='button' href='pengajuan.php'>Kembali</a>
         </div>
+    </div>
+</div>
+
+    <div class="footer">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+        <div class="footer-content">
+          <div class="col-md-4 px-2 d-flex align-items-center">
+            <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+              <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+          </div>
+        </div>
+      </footer>
     </div>
 
 </body>

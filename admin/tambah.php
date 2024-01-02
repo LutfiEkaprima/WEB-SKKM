@@ -9,12 +9,13 @@
     $password = $_POST['password'];
     $tgl_lahir = $_POST['tgl_lahir'];
     $nilai = $_POST['nilai'];
+    $email = $_POST['email'];
 
     $nama_gambar = $_FILES['foto']['name'];
     $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
     move_uploaded_file($tmp_nama_gambar,'../asset/foto/mhs/'.$nama_gambar);
 
-    $querySQL = "INSERT INTO mahasiswa(nrp,nama,jurusan,semester,alamat,password,tgl_lahir,nilai,foto) VALUES ('$nrp','$nama','$jurusan','$semester','$alamat','$password','$tgl_lahir','$nilai','$nama_gambar')";
+    $querySQL = "INSERT INTO mahasiswa(nrp,nama,jurusan,semester,alamat,password,tgl_lahir,nilai,foto,email) VALUES ('$nrp','$nama','$jurusan','$semester','$alamat','$password','$tgl_lahir','$nilai','$nama_gambar','$email')";
 
     try {
         $hasil = $koneksi->query($querySQL);

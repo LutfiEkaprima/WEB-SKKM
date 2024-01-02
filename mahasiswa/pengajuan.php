@@ -3,7 +3,17 @@ include '../koneksi.php';
 include "role.php";
 
 $nrp = $row1['nrp'];
+$status = "";
 
+$sqlQuery = "SELECT * from pengajuan where nrp='$nrp'";
+$result = $koneksi->query($sqlQuery);
+
+$sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+        FROM pengajuan
+        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
+        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan";
+
+$result = $koneksi->query($sql);
 ?>
 
 
@@ -104,34 +114,30 @@ $nrp = $row1['nrp'];
             </thead>
             <tbody class="table-body">
               <?php
-                $sqlQuery = "SELECT * from pengajuan where nrp='$nrp'";
-                $result = $koneksi->query($sqlQuery);
-
-                $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
-                        FROM pengajuan
-                        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
-                        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan";
-
-                $result = $koneksi->query($sql);
-
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row['nrp'] . "</td>";
-                        echo "<td>" . $row['nama_kegiatan'] . "</td>";
-                        echo "<td>" . $row['bentuk_kegiatan'] . "</td>";
-                        echo "<td>" . $row['tingkatan'] . "</td>";
-                        echo "<td>" . $row['tanggal_pengajuan'] . "</td>";
-                        echo "<td>" . $row['nilai'] . "</td>";
-                        $status = ($row['status'] == 0) ? "Belum Disetujui" : "Disetujui";
-                        echo "<td>" . $status . "</td>"; 
-                        echo "</tr>";
-                    }
-
-                    echo "</table>";
-                } else {
-                    echo "Tidak ada data pengajuan";
+              if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                  if ($row['status'] == 0) {
+                    $status = "Menunggu Persetujuan";
+                  } elseif ($row['status'] == 1) {
+                    $status = "Disetujui";
+                  } elseif ($row['status'] == 2) {
+                    $status = "Ditolak";
+                  }
+                  echo "<tr>";
+                  echo "<td>" . $row['nrp'] . "</td>";
+                  echo "<td>" . $row['nama_kegiatan'] . "</td>";
+                  echo "<td>" . $row['bentuk_kegiatan'] . "</td>";
+                  echo "<td>" . $row['tingkatan'] . "</td>";
+                  echo "<td>" . $row['tanggal_pengajuan'] . "</td>";
+                  echo "<td>" . $row['nilai'] . "</td>";
+                  echo "<td>" . $status . "</td>";
+                  echo "</tr>";
                 }
+
+                echo "</table>";
+              } else {
+                echo "Tidak ada data pengajuan";
+              }
               ?>
             </tbody>
         </table>

@@ -134,7 +134,7 @@ include "../koneksi.php";
       </div>
 
       <div class="card-box">
-        <div class="card bg-info" style="width: 18rem; height: 10rem;">
+        <div class="card bg-primary" style="width: 18rem; height: 10rem;">
           <div class="icon-card">
             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
@@ -154,13 +154,58 @@ include "../koneksi.php";
           </div>
         </div>
       </div>
+
+      <div class="card-box">
+        <div class="card bg-warning" style="width: 18rem; height: 10rem;">
+          <div class="icon-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Total Pengajuan</h5>
+            <div class="data-mhs">
+              <?php
+                $querySQL = "SELECT COUNT(*) as total FROM pengajuan";
+                $result = $koneksi->query($querySQL);
+                $row = $result->fetch_assoc();
+                $totalData = $row['total'];
+                echo $totalData;
+              ?>
+            </div>
+            <a href="pengajuan.php">Lihat Pengajuan</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <div class="card bg-success" style="width: 18rem; height: 10rem;">
+          <div class="icon-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+            </svg>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Jumlah Kegiatan</h5>
+            <div class="data-mhs">
+              <?php
+                $querySQL = "SELECT COUNT(*) as total FROM jenis_kegiatan";
+                $result = $koneksi->query($querySQL);
+                $row = $result->fetch_assoc();
+                $totalData = $row['total'];
+                echo $totalData;
+              ?>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="footer">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
       <div class="footer-content">
-        <div class="col-md-4 d-flex align-items-center">
+        <div class="col-md-4 px-2 d-flex align-items-center">
           <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
             <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
           </a>

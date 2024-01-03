@@ -3,6 +3,21 @@
 include "role.php";
 include "../koneksi.php";
 
+
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number
+$studentsPerPage = 10; 
+$offset = ($page - 1) * $studentsPerPage; 
+
+
+$sqlQuery = "SELECT * FROM pka LIMIT $offset, $studentsPerPage";
+$result1 = $koneksi->query($sqlQuery);
+
+
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM pka";
+$totalResult = $koneksi->query($totalStudentsQuery);
+$totalData = $totalResult->fetch_assoc()['total'];
+$totalPages = ceil($totalData / $studentsPerPage); 
+
 if (isset($_GET['op'])) {
   $op = $_GET['op'];
 } else {
@@ -157,12 +172,9 @@ if ($op == "delete") {
             </thead>
             <tbody class="table-body">
               <?php
-                $sqlQuery = "SELECT * FROM pka";
-                $result = $koneksi->query($sqlQuery);
-
-                if ($result->num_rows > 0) {
+                if ($result1->num_rows > 0) {
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while($row = $result1->fetch_assoc()) {
                   echo"
                     <tr> 
                       <td>".$row["idpka"]."</td>
@@ -188,6 +200,30 @@ if ($op == "delete") {
               ?>
             </tbody>
         </table>
+
+        <nav aria-label="Page navigation example">
+          <?php
+            if ($totalPages > 0) {
+                echo "<ul class='pagination justify-content-end'>
+                        <li class='page-item'>
+                            <a class='page-link' href='datapka.php?page=" . (($page > 1) ? ($page - 1) : 1) . "' aria-label='Previous'>
+                                <span aria-hidden='true'>&laquo;</span>
+                            </a>
+                        </li>";
+                for ($i = 1; $i <= $totalPages; $i++) {
+                    echo "<li class='page-item " . (($i == $page) ? 'active' : '') . "'>
+                            <a class='page-link' href='datapka.php?page=" . $i . "'>" . $i . "</a>
+                          </li>";
+                }
+                echo "<li class='page-item'>
+                        <a class='page-link' href='datapka.php?page=" . (($page < $totalPages) ? ($page + 1) : $totalPages) . "' aria-label='Next'>
+                            <span aria-hidden='true'>&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>";
+            }
+          ?>
+        </nav>
     </section>
   </div>
 

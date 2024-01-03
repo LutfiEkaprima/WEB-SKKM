@@ -107,6 +107,8 @@ include "role.php";
             </div>
             ";
           }
+        } else {
+          echo "Belum Ada Sertifikat yang disetujui";
         }
 
       ?>

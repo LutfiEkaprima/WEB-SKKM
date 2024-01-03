@@ -1,7 +1,21 @@
 <?php
-
 include "role.php";
 include "../koneksi.php";
+
+// Define pagination parameters
+$page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number
+$studentsPerPage = 10; // Number of students to display per page
+$offset = ($page - 1) * $studentsPerPage; // Calculate the offset for SQL query
+
+// Fetch students for the current page
+$sqlQuery = "SELECT * FROM mahasiswa LIMIT $offset, $studentsPerPage";
+$result1 = $koneksi->query($sqlQuery);
+
+// Calculate total pages
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM mahasiswa";
+$totalResult = $koneksi->query($totalStudentsQuery);
+$totalData = $totalResult->fetch_assoc()['total'];
+$totalPages = ceil($totalData / $studentsPerPage); // Calculate total pages
 
 if (isset($_GET['op'])) {
     $op = $_GET['op'];
@@ -162,13 +176,11 @@ if($op == "delete"){
               </tr>
             </thead>
             <tbody class="table-body">
-              <?php
-                $sqlQuery = "SELECT * FROM mahasiswa";
-                $result = $koneksi->query($sqlQuery);
+              <?php 
 
-                if ($result->num_rows > 0) {
+                if ($result1->num_rows > 0) {
                 // output data of each row
-                while($row = $result->fetch_assoc()) {
+                while ($row = $result1->fetch_assoc()) {
                   echo"
                     <tr> 
                       <td>".$row["id_mhs"]."</td>
@@ -198,6 +210,28 @@ if($op == "delete"){
               ?>
             </tbody>
         </table>
+
+        <?php
+          if ($totalPages > 0) {
+              echo "<ul class='pagination justify-content-end'>
+                      <li class='page-item'>
+                          <a class='page-link' href='datamahasiswa.php?page=" . (($page > 1) ? ($page - 1) : 1) . "' aria-label='Previous'>
+                              <span aria-hidden='true'>&laquo;</span>
+                          </a>
+                      </li>";
+              for ($i = 1; $i <= $totalPages; $i++) {
+                  echo "<li class='page-item " . (($i == $page) ? 'active' : '') . "'>
+                          <a class='page-link' href='datamahasiswa.php?page=" . $i . "'>" . $i . "</a>
+                        </li>";
+              }
+              echo "<li class='page-item'>
+                      <a class='page-link' href='datamahasiswa.php?page=" . (($page < $totalPages) ? ($page + 1) : $totalPages) . "' aria-label='Next'>
+                          <span aria-hidden='true'>&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>";
+          }
+        ?>
 
     </section>
   </div>

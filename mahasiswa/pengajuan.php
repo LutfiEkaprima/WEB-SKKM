@@ -133,10 +133,6 @@ $result = $koneksi->query($sql);
                   echo "<td>" . $status . "</td>";
                   echo "</tr>";
                 }
-
-                echo "</table>";
-              } else {
-                echo "Tidak ada data pengajuan";
               }
               ?>
             </tbody>

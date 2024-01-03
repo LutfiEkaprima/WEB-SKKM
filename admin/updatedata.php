@@ -3,11 +3,26 @@
 include '../koneksi.php';
 include "role.php";
 
-$nrp = $row1['nrp'];
-$status = "";
-
-$sqlQuery = "SELECT * from pengajuan where nrp='$nrp'";
+$sqlQuery = "SELECT * from admin where username='$username'";
 $result = $koneksi->query($sqlQuery);
+
+if (isset($_POST['submit'])) {
+    $id = $row1['idadmin'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $nohp = $_POST['nohp'];
+    $username = $_POST['username'];
+   
+    $querySQL = "UPDATE admin SET nama = '$nama', email = '$email', nohp ='$nohp', username ='$username' WHERE idadmin = '$id'";
+    $hasil = $koneksi->query($querySQL);
+    echo '<script type="text/javascript">
+                  window.onload = function () {
+                    $("#successModal").modal("show");
+                  }
+                </script>';
+
+    header("Refresh: 2; url=profile.php?username=$username");
+}
 
 ?>
 
@@ -98,47 +113,32 @@ $result = $koneksi->query($sqlQuery);
             <div>
               <div class="bg-body rounded-3 shadow-sm mb-4 p-4 d-flex">
                 <div class="d-flex align-items-center mb-4 me-5">
-                <img src="../asset/foto/mhs/<?php echo $row1['foto']?>" class="rounded-circle me-3" width="180" height="180" alt="<?php $row1['nama'] ?>">
+                <img src="asset/img/management.png" class="rounded-circle me-3" width="180" height="180" alt="Admin">
             </div>
 
             <div>
-              <form class="border-bottom pb-3 pb-lg-4">
+              <form class="border-bottom pb-3 pb-lg-4" method="post" action="" enctype="multipart/form-data">
                 <div class="row pb-2">
                   <div class="col-sm-6 mb-4">
-                    <label for="fn" class="form-label fs-base">Nama Lengkap</label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nama'] ?>" disabled>
+                    <label for="nama" class="form-label fs-base">Nama Lengkap</label>
+                    <input type="text" class="form-control form-control-lg" name="nama" id="nama" value="<?php echo $row1['nama'] ?>">
                   </div>
                   <div class="col-sm-6 mb-4">
-                    <label for="sn" class="form-label fs-base">NRP</label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nrp'] ?>" disabled>
+                    <label for="nohp" class="form-label fs-base">No Handphone</label>
+                    <input type="nohp" class="form-control form-control-lg" name="nohp" id="nohp" value="<?php echo $row1['nohp'] ?>">
                   </div>
                   <div class="col-sm-6 mb-4">
-                    <label for="email" class="form-label fs-base">Email address</label>
-                    <input type="email" class="form-control form-control-lg" value="<?php echo $row1['email'] ?>" disabled>
-                  </div>
-                  <div class="col-sm-6 mb-4">
-                    <label for="jurusan" class="form-label fs-base">Jurusan</small></label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['jurusan'] ?>" disabled>
-                  </div>
-                  <div class="col-sm-6 mb-4">
-                    <label for="semester" class="form-label fs-base">Semester</small></label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['semester']?>" disabled>
-                  </div>
-                  <div class="col-sm-6 mb-4">
-                    <label for="tgl_lahir" class="form-label fs-base">Tanggal Lahir</small></label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['tgl_lahir'] ?>" disabled>
-                  </div>
-                  <div class="col-sm-6 mb-4">
-                    <label for="nilai" class="form-label fs-base">Nilai</small></label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['nilai'] ?>" disabled>
+                    <label for="username" class="form-label fs-base">Username</label>
+                    <input type="username" class="form-control form-control-lg" name="username" id="username" value="<?php echo $row1['username'] ?>">
                   </div>
                   <div class="col-sm-12 mb-4">
-                    <label for="alamat" class="form-label fs-base">Alamat</small></label>
-                    <input type="text" class="form-control form-control-lg" value="<?php echo $row1['alamat'] ?>" disabled>
+                    <label for="email" class="form-label fs-base">Email</label>
+                    <input type="text" class="form-control form-control-lg" name="email" id="email" value="<?php echo $row1['email'] ?>">
                   </div>
+
                   <div class="d-flex mb-3">
-                    <a class='btn btn-danger me-4' role='button' href='resetpassword.php?id="<?php echo $row1['id_mhs']?>"'>Ganti Password</a>
-                    <a class='btn btn-primary' role='button' href='updatedata.php?id="<?php echo $row1['id_mhs']?>"'>Ubah Data Diri</a>
+                    <button type="submit" name="submit" class='btn btn-danger me-4' role='button'>Submit</button>
+                    <a class='btn btn-primary' role='button' href='profilmahasiswa.php'>Kembali</a>
                   </div>
                 </div>
               </form>
@@ -150,7 +150,25 @@ $result = $koneksi->query($sqlQuery);
       </div>
       </div>
     </div>
-  </div>
+
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Berhasil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Data Berhasil Diubah
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>

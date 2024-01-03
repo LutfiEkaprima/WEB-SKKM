@@ -130,7 +130,7 @@ if (isset($_POST['submit'])) {
       <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
         <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
           <div>
-            <form class="border-bottom pb-3 pb-lg-4" method="post" action="">
+            <form class="border-bottom pb-3 pb-lg-4" method="post" action="" enctype="multipart/form-data">>
               <div class="row pb-2">
                 <div class="col-sm-12 mb-4">
                   <label for="fn" class="form-label fs-base">Password Lama</label>
@@ -146,17 +146,17 @@ if (isset($_POST['submit'])) {
                   <input type="password" class="form-control form-control-lg " name="konfirmasipassword">
                   <br>
                 </div>
-              </div>
-              <div class="d-flex mb-3">
-                  <a href="Profilmahasiswa.php" class="btn btn-primary me-4" role="Button">Kembali</a>
-                <button type="submit" name="submit" class='btn btn-danger' role='button'>Ganti Password</button>
+                <div class="d-flex mb-3">
+                    <a href="Profilmahasiswa.php" class="btn btn-primary me-4" role="Button">Kembali</a>
+                  <button type="submit" name="submit" class='btn btn-danger' role='button'>Ganti Password</button>
+                </div>
               </div>
             </form>
-            </div>
-
           </div>
-        </div>
+
+      </div>
     </div>
+  </div>
 
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">

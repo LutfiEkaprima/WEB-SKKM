@@ -144,9 +144,10 @@ include "role.php"
                   <label for="username" class="form-label fs-base">Username</small></label>
                   <input type="text" class="form-control form-control-lg" value="<?php echo $row1['username'] ?>" disabled>
                 </div>
-              </div>
-              <div class="d-flex mb-3">
-                <a class='btn btn-danger' role='button' href='resetpassword.php?id="<?php echo $row1['idadmin']?>"'>Ganti Password</a>
+                <div class="d-flex mb-3">
+                  <a class='btn btn-danger me-4' role='button' href='resetpassword.php?id="<?php echo $row1['idadmin']?>"'>Ganti Password</a>
+                  <a class='btn btn-warning' role='button' href='updatedata.php?id="<?php echo $row1['idadmin']?>"'>Ubah Data Diri</a>
+                </div>
               </div>
             </form>
             </div>

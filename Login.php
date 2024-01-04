@@ -32,7 +32,7 @@ if (isset($_POST["username"], $_POST["password"])) {
             $_SESSION["role"] = 'admin'; // Menambahkan informasi peran
             header("location: ./admin?username=$username");
         } else {
-            $err = "Username atau Password yang anda masukkan salah";
+            $err = "Username atau Password salah";
         }
     }
     echo "<script>alert('$err');</script>";

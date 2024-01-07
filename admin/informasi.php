@@ -48,7 +48,7 @@ include "role.php"
   <div class="isi-content">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height: 100vh;">
       <div class="side-judul">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
           </svg>
@@ -109,25 +109,28 @@ include "role.php"
       </div>
     </div>
 
-    <div class="embed-content">
-      <h1>INFORMASI NILAI SKKM</h1>
-      <embed src="../asset/img/infoskkm.pdf" type="">
+    <div class="d-flex flex-column w-100">
+      <div class="embed-content">
+        <h1>INFORMASI NILAI SKKM</h1>
+        <embed src="../asset/img/infoskkm.pdf" type="">
+      </div>
+
+      <div class="footer mb-1 mt-auto">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
 
   </div>
 
-  <div class="footer">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-      <div class="footer-content">
-        <div class="col-md-4 px-2 d-flex align-items-center">
-          <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
-        </div>
-      </div>
-    </footer>
-  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

@@ -3,20 +3,22 @@
 include "role.php";
 include "../koneksi.php";
 
+$page = isset($_GET['page']) ? $_GET['page'] : 1; 
+$studentsPerPage = 5; 
+$offset = ($page - 1) * $studentsPerPage;
 
-$page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number
-$studentsPerPage = 10; 
-$offset = ($page - 1) * $studentsPerPage; 
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
+$whereClause = !empty($search) ? "WHERE nama LIKE '%$search%' OR jabatan LIKE '%$search%'" : '';
+$sqlQuery = "SELECT * FROM pka $whereClause LIMIT $offset, $studentsPerPage";
 
-$sqlQuery = "SELECT * FROM pka LIMIT $offset, $studentsPerPage";
 $result1 = $koneksi->query($sqlQuery);
 
-
-$totalStudentsQuery = "SELECT COUNT(*) as total FROM pka";
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM pka $whereClause";
 $totalResult = $koneksi->query($totalStudentsQuery);
 $totalData = $totalResult->fetch_assoc()['total'];
-$totalPages = ceil($totalData / $studentsPerPage); 
+$totalPages = ceil($totalData / $studentsPerPage);
+
 
 if (isset($_GET['op'])) {
   $op = $_GET['op'];
@@ -41,6 +43,7 @@ if ($op == "delete") {
               $("#deleteModal").modal("show");
             }
           </script>';
+    header("Refresh: 2; url=datapka.php");
   }
 }
 
@@ -152,79 +155,104 @@ if ($op == "delete") {
       </div>
     </div>
 
-    <section class="data_mhs">
-      <h4>Data PKA</h4>
-      <nav>
-        <a class="btn btn-primary" href="createpka.php" role="button">Tambahkan Data PKA</a>
-      </nav>
-        
-        <table class="table align-middle">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Jabatan</th>
-                <th scope="col">Email</th>
-                <th scope="col">Tgl-Lahir</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody class="table-body">
-              <?php
-                if ($result1->num_rows > 0) {
-                // output data of each row
-                while($row = $result1->fetch_assoc()) {
-                  echo"
-                    <tr> 
-                      <td>".$row["idpka"]."</td>
-                      <td>".$row["nama"]."</td>
-                      <td>".$row["jabatan"]."</td>
-                      <td>".$row["email"]."</td>
-                      <td>".$row["tgl_lahir"]."</td>
-                      <td>
-                        <div>
-                          <img src='../asset/foto/pka/".$row["foto"]."'>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                            <a class='btn btn-primary' role='button' href='readpka.php?id=".$row["idpka"]."'>Read</a>
-                            <a class='btn btn-info' role='button' href='updatepka.php?id=".$row["idpka"]."'>Update</a>
-                            <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datapka.php?op=delete&id=".$row["idpka"]."&foto=".$row["foto"]."'>Delete</a>
-                        </div>
-                      </td>
-                    </tr>";
-                  }
-                  }
-              ?>
-            </tbody>
-        </table>
+    <div class="d-flex flex-column w-100">
 
-        <nav aria-label="Page navigation example">
-          <?php
-            if ($totalPages > 0) {
-                echo "<ul class='pagination justify-content-end'>
-                        <li class='page-item'>
-                            <a class='page-link' href='datapka.php?page=" . (($page > 1) ? ($page - 1) : 1) . "' aria-label='Previous'>
-                                <span aria-hidden='true'>&laquo;</span>
-                            </a>
-                        </li>";
-                for ($i = 1; $i <= $totalPages; $i++) {
-                    echo "<li class='page-item " . (($i == $page) ? 'active' : '') . "'>
-                            <a class='page-link' href='datapka.php?page=" . $i . "'>" . $i . "</a>
-                          </li>";
-                }
-                echo "<li class='page-item'>
-                        <a class='page-link' href='datapka.php?page=" . (($page < $totalPages) ? ($page + 1) : $totalPages) . "' aria-label='Next'>
-                            <span aria-hidden='true'>&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>";
-            }
-          ?>
-        </nav>
-    </section>
+      <section class="data_mhs">
+        <div class="d-flex justify-content-between">
+          <h4 class="mb-4">Data Mahasiswa</h4>
+          <form class="mb-3" action="datapka.php" method="GET">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Cari PKA..." name="search">
+              <button class="btn btn-outline-primary" type="submit">Cari</button>
+              <?php if (!empty($search)) : ?>
+                <a href="datapka.php" class="btn btn-outline-secondary">Reset</a>
+              <?php endif; ?>
+            </div>
+          </form>
+        </div>
+          
+          <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Jabatan</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Tgl-Lahir</th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="table-body">
+                <?php
+                  if ($result1->num_rows > 0) {
+                  // output data of each row
+                  while($row = $result1->fetch_assoc()) {
+                    echo"
+                      <tr> 
+                        <td>".$row["idpka"]."</td>
+                        <td>".$row["nama"]."</td>
+                        <td>".$row["jabatan"]."</td>
+                        <td>".$row["email"]."</td>
+                        <td>".$row["tgl_lahir"]."</td>
+                        <td>
+                          <div>
+                            <img src='../asset/foto/pka/".$row["foto"]."'>
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                              <a class='btn btn-primary' role='button' href='readpka.php?id=".$row["idpka"]."'>Read</a>
+                              <a class='btn btn-info' role='button' href='updatepka.php?id=".$row["idpka"]."'>Update</a>
+                              <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datapka.php?op=delete&id=".$row["idpka"]."&foto=".$row["foto"]."'>Delete</a>
+                          </div>
+                        </td>
+                      </tr>";
+                    }
+                    }
+                ?>
+              </tbody>
+          </table>
+          
+          <div class='d-flex justify-content-between align-items-center'> 
+            <a class='btn btn-primary' href='createpka.php' role='button'>Tambahkan Data PKA</a>
+            <?php if ($totalPages > 0) { ?>
+              <ul class='pagination justify-content-end'>
+                <li class='page-item'>
+                  <a class='page-link' href='datapka.php?page=<?php echo ($page > 1) ? ($page - 1) : 1 ?>&search=<?php echo urlencode($search) ?>' aria-label='Previous'>
+                    <span aria-hidden='true'>&laquo;</span>
+                  </a>
+                </li>
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                  <li class='page-item <?php echo ($i == $page) ? 'active' : '' ?>'>
+                    <a class='page-link' href='datapka.php?page=<?php echo $i ?>&search=<?php echo urlencode($search) ?>'><?php echo $i ?></a>
+                  </li>
+                <?php } ?>
+                <li class='page-item'>
+                  <a class='page-link' href='datapka.php?page=<?php echo ($page < $totalPages) ? ($page + 1) : $totalPages ?>&search=<?php echo urlencode($search) ?>' aria-label='Next'>
+                    <span aria-hidden='true'>&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            <?php } ?>
+          </div>
+
+      </section>
+
+      <div class="footer mt-auto mb-1">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
   </div>
 
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -242,19 +270,6 @@ if ($op == "delete") {
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="footer">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-      <div class="footer-content">
-        <div class="col-md-4 px-2 d-flex align-items-center">
-          <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
-        </div>
-      </div>
-    </footer>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

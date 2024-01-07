@@ -2,20 +2,21 @@
 include "role.php";
 include "../koneksi.php";
 
-// Define pagination parameters
-$page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number
-$studentsPerPage = 10; // Number of students to display per page
-$offset = ($page - 1) * $studentsPerPage; // Calculate the offset for SQL query
+$page = isset($_GET['page']) ? $_GET['page'] : 1; 
+$studentsPerPage = 5; 
+$offset = ($page - 1) * $studentsPerPage;
 
-// Fetch students for the current page
-$sqlQuery = "SELECT * FROM mahasiswa LIMIT $offset, $studentsPerPage";
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+
+$whereClause = !empty($search) ? "WHERE nama LIKE '%$search%' OR nrp LIKE '%$search%' OR jurusan LIKE '%$search%' OR semester LIKE '%$search%'" : '';
+$sqlQuery = "SELECT * FROM mahasiswa $whereClause LIMIT $offset, $studentsPerPage";
+
 $result1 = $koneksi->query($sqlQuery);
 
-// Calculate total pages
-$totalStudentsQuery = "SELECT COUNT(*) as total FROM mahasiswa";
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM mahasiswa $whereClause";
 $totalResult = $koneksi->query($totalStudentsQuery);
 $totalData = $totalResult->fetch_assoc()['total'];
-$totalPages = ceil($totalData / $studentsPerPage); // Calculate total pages
+$totalPages = ceil($totalData / $studentsPerPage);
 
 if (isset($_GET['op'])) {
     $op = $_GET['op'];
@@ -28,7 +29,6 @@ if($op == "delete"){
     $foto = $_GET['foto'];
     $fotoPath = '../asset/foto/mhs/' . $foto;
     if (file_exists($fotoPath)) {
-        // Hapus foto lama jika ada
         unlink($fotoPath);
     }
 
@@ -89,7 +89,6 @@ if($op == "delete"){
 
 
   <div class="isi-content">
-
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height: 100vh;">
       <div class="side-judul">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -152,90 +151,119 @@ if($op == "delete"){
         </ul>
       </div>
     </div>
+    
+    <div class="d-flex flex-column w-100">
+      <section class="data_mhs">
+        <div class="d-flex justify-content-between">
+          <h4 class="mb-4">Data Mahasiswa</h4>
+          <form class="mb-3" action="datamahasiswa.php" method="GET">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Cari mahasiswa..." name="search">
+              <button class="btn btn-outline-primary" type="submit">Cari</button>
+              <?php if (!empty($search)) : ?>
+                <a href="datamahasiswa.php" class="btn btn-outline-secondary">Reset</a>
+              <?php endif; ?>
+            </div>
+          </form>
+        </div>
 
-    <section class="data_mhs">
-      <h4>Data Mahasiswa</h4>
-      <nav>
-        <a class="btn btn-primary" href="create.php" role="button">Tambahkan Data Mahasiswa</a>
-      </nav>
 
-        <table class="table align-middle">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">NRP</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Email</th>
-                <th scope="col">Jurusan</th>
-                <th scope="col">Semester</th>
-                <th scope="col">Alamat</th>
-                <th scope="col">Foto</th>
-                <th scope="col">Tgl-Lahir</th>
-                <th scope="col">Nilai</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody class="table-body">
-              <?php 
+          <table class="table align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">NRP</th>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Jurusan</th>
+                  <th scope="col">Semester</th>
+                  <th scope="col">Alamat</th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Tgl-Lahir</th>
+                  <th scope="col">Nilai</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody class="table-body">
+                <?php 
 
-                if ($result1->num_rows > 0) {
-                // output data of each row
-                while ($row = $result1->fetch_assoc()) {
-                  echo"
-                    <tr> 
-                      <td>".$row["id_mhs"]."</td>
-                      <td>".$row["nrp"]."</td>
-                      <td>".$row["nama"]."</td>
-                      <td>".$row["email"]."</td>
-                      <td>".$row["jurusan"]."</td>
-                      <td>".$row["semester"]."</td>
-                      <td>".$row["alamat"]."</td>
-                      <td>
-                        <div>
-                          <img src='../asset/foto/mhs/".$row["foto"]."'>
-                        </div>
-                      </td>
-                      <td>".$row["tgl_lahir"]."</td>
-                      <td>".$row["nilai"]."</td>
-                      <td>
-                        <div>
-                          <a class='btn btn-primary' role='button' href='read.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Read</a>
-                          <a class='btn btn-info' role='button' href='update.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Update</a>
-                          <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datamahasiswa.php?op=delete&id=".$row["id_mhs"]."&nrp=".$row["nrp"]."&foto=".$row["foto"]."'>Delete</a>
-                        </div>
-                      </td>
-                    </tr>";
-                  }
-                  } 
-              ?>
-            </tbody>
-        </table>
+                  if ($result1->num_rows > 0) {
+                  // output data of each row
+                  while ($row = $result1->fetch_assoc()) {
+                    echo"
+                      <tr> 
+                        <td>".$row["id_mhs"]."</td>
+                        <td>".$row["nrp"]."</td>
+                        <td>".$row["nama"]."</td>
+                        <td>".$row["email"]."</td>
+                        <td>".$row["jurusan"]."</td>
+                        <td>".$row["semester"]."</td>
+                        <td>".$row["alamat"]."</td>
+                        <td>
+                          <div>
+                            <img src='../asset/foto/mhs/".$row["foto"]."'>
+                          </div>
+                        </td>
+                        <td>".$row["tgl_lahir"]."</td>
+                        <td>".$row["nilai"]."</td>
+                        <td>
+                          <div>
+                            <a class='btn btn-primary' role='button' href='read.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Read</a>
+                            <a class='btn btn-info' role='button' href='update.php?id=".$row["id_mhs"]."&nrp=".$row["nrp"]."'>Update</a>
+                            <a class='btn btn-warning' onclick='return confirm(\"Yakin mau delete data?\")' role='button' href='datamahasiswa.php?op=delete&id=".$row["id_mhs"]."&nrp=".$row["nrp"]."&foto=".$row["foto"]."'>Delete</a>
+                          </div>
+                        </td>
+                      </tr>";
+                    }
+                    } 
+                    
+                ?>
+              </tbody>
+          </table>
 
-        <?php
-          if ($totalPages > 0) {
-              echo "<ul class='pagination justify-content-end'>
-                      <li class='page-item'>
-                          <a class='page-link' href='datamahasiswa.php?page=" . (($page > 1) ? ($page - 1) : 1) . "' aria-label='Previous'>
-                              <span aria-hidden='true'>&laquo;</span>
-                          </a>
-                      </li>";
-              for ($i = 1; $i <= $totalPages; $i++) {
-                  echo "<li class='page-item " . (($i == $page) ? 'active' : '') . "'>
-                          <a class='page-link' href='datamahasiswa.php?page=" . $i . "'>" . $i . "</a>
-                        </li>";
-              }
-              echo "<li class='page-item'>
-                      <a class='page-link' href='datamahasiswa.php?page=" . (($page < $totalPages) ? ($page + 1) : $totalPages) . "' aria-label='Next'>
-                          <span aria-hidden='true'>&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>";
-          }
-        ?>
+          <div class='d-flex justify-content-between align-items-center'> 
+            <a class='btn btn-primary' href='create.php' role='button'>Tambahkan Data Mahasiswa</a>
+            <?php if ($totalPages > 0) { ?>
+              <ul class='pagination justify-content-end'>
+                <li class='page-item'>
+                  <a class='page-link' href='datamahasiswa.php?page=<?php echo ($page > 1) ? ($page - 1) : 1 ?>&search=<?php echo urlencode($search) ?>' aria-label='Previous'>
+                    <span aria-hidden='true'>&laquo;</span>
+                  </a>
+                </li>
+                <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                  <li class='page-item <?php echo ($i == $page) ? 'active' : '' ?>'>
+                    <a class='page-link' href='datamahasiswa.php?page=<?php echo $i ?>&search=<?php echo urlencode($search) ?>'><?php echo $i ?></a>
+                  </li>
+                <?php } ?>
+                <li class='page-item'>
+                  <a class='page-link' href='datamahasiswa.php?page=<?php echo ($page < $totalPages) ? ($page + 1) : $totalPages ?>&search=<?php echo urlencode($search) ?>' aria-label='Next'>
+                    <span aria-hidden='true'>&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            <?php } ?>
+          </div>
+      </section>
 
-    </section>
+      <!-- footer -->
+      <div class="footer mt-auto mb-1">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+    </div>
+
   </div>
   
+  <!-- modal -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -251,20 +279,6 @@ if($op == "delete"){
         </div>
       </div>
     </div>
-  </div>
-
-
-  <div class="footer">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-      <div class="footer-content">
-        <div class="col-md-4 px-2 d-flex align-items-center">
-          <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-            <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
-        </div>
-      </div>
-    </footer>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

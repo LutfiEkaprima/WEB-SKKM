@@ -125,3 +125,8 @@ a {
     background-color: transparent;
     
 }
+
+dl, ol, ul {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Jan 2024 pada 17.12
+-- Waktu pembuatan: 07 Jan 2024 pada 14.02
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -32,16 +32,17 @@ CREATE TABLE `admin` (
   `username` varchar(50) NOT NULL,
   `password` varchar(20) NOT NULL,
   `jabatan` varchar(255) NOT NULL,
-  `foto` varchar(255) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `nohp` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`idadmin`, `username`, `password`, `jabatan`, `foto`, `nama`) VALUES
-(1, 'admin', 'admin', 'PKA', 'img.jpg', 'abdi');
+INSERT INTO `admin` (`idadmin`, `username`, `password`, `jabatan`, `nama`, `email`, `nohp`) VALUES
+(1, 'admin', '1234', 'Super Admin', 'abdi12', 'abd1231@gmail.com', '08123213322');
 
 -- --------------------------------------------------------
 
@@ -145,15 +146,65 @@ CREATE TABLE `mahasiswa` (
   `foto` varchar(255) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `password` varchar(20) NOT NULL,
-  `nilai` int(3) NOT NULL
+  `nilai` int(3) NOT NULL,
+  `email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id_mhs`, `nrp`, `nama`, `jurusan`, `semester`, `alamat`, `foto`, `tgl_lahir`, `password`, `nilai`) VALUES
-(31, 1152200006, 'Lutfi Ekaprima Jannata', 'Teknik Informatika', 3, 'Perumahan Legok Indah', 'Hitori Gotoh.jpeg', '2003-01-22', 'lutfi123', 80);
+INSERT INTO `mahasiswa` (`id_mhs`, `nrp`, `nama`, `jurusan`, `semester`, `alamat`, `foto`, `tgl_lahir`, `password`, `nilai`, `email`) VALUES
+(1, 101210001, 'Bahrudin Akbar Remid', 'Teknik Industri', 2, 'Gunung Sindur Dikit', '1678189237144.jpg', '2003-02-11', 'akbar23', 100, 'bahrudin123@gmail.com'),
+(2, 101210002, 'Rivaldi Robby', '', 5, 'Tangerang Kota', 'download222.jpeg', '2003-05-12', 'roby22', 10, 'rivaldict@gmail.com'),
+(3, 112190003, 'Renanda Ahmad', 'Teknik Sipil', 7, 'Cimone', 'Hitori Gotoh.jpeg', '2000-08-09', 'ahmad11', 0, 'renanda24@gmail.com'),
+(4, 113180003, 'Alfiana Ticux', 'Teknik Industri', 7, 'Tangerang Kota', 'Hitori Gotoh.jpeg', '2000-01-20', 'ticux21', 0, 'tcux55@gmail.com'),
+(5, 113190003, 'Ananda Wijaya', 'Teknik Industri', 7, 'Tangerang Selatan', 'Hitori Gotoh.jpeg', '2000-12-15', 'jaya88', 0, 'jayadoble@gmail.com'),
+(6, 113220004, 'Asep Sutrisno', 'Teknik Industri', 3, 'Depok', 'Hitori Gotoh.jpeg', '2004-03-12', 'asep24', 0, 'Asep.Sutrisno@gmail.com'),
+(7, 103220023, 'Agung Widyodiningrat', 'Teknik Industri Pertanian', 3, 'Depok', 'Hitori Gotoh.jpeg', '2004-05-01', 'agung14', 0, 'Agung.Widyodiningrat@gmail.com'),
+(8, 103220011, 'Jidan Catur', 'Teknik Industri Pertanian', 3, 'Cimone', 'Hitori Gotoh.jpeg', '2003-06-22', 'jidan55', 0, 'Jidan.Catur@gmail.com'),
+(9, 114220040, 'Rahmat Mustaqim', 'Teknik Elektro', 3, 'Alam Sutera', 'Hitori Gotoh.jpeg', '2004-04-07', 'rahmat32', 0, 'Rahmat.Mustaqim@gmail.com'),
+(10, 103220055, 'Jashon Christ', 'Teknik Industri Pertanian', 3, 'Alam Sutera', 'Hitori Gotoh.jpeg', '2004-05-07', 'jashon25', 0, 'JashonChrist@gmail.com'),
+(11, 103220087, 'Rizky Akbar', 'Teknik Industri Pertanian', 3, 'Cisauk', 'Hitori Gotoh.jpeg', '2004-08-09', 'taqim99', 0, 'Rizky.Akbar@gmail.com'),
+(12, 111220028, 'Wahyu Agung', 'Teknik Kimia', 3, 'Cisauk', 'Hitori Gotoh.jpeg', '2004-03-09', 'wahyu86', 0, 'Wahyu.Agung@gmail.com'),
+(13, 112220001, 'Yudha Dwi', 'Teknik Sipil', 3, 'Cisauk', 'Hitori Gotoh.jpeg', '2004-02-03', 'yudha65', 0, 'Yudha.Dwi@gmail.com'),
+(14, 110220053, 'Rangga Kusuma', 'Perancangan Wilayah dan Kota', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-01-02', 'kusuma43', 0, 'RanggaKusuma@gmail.com'),
+(15, 110220024, 'Joko Santoso', 'Perancangan Wilayah dan Kota', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-02-22', 'toso43', 0, 'Joko8Santoso@gmail.com'),
+(16, 110220067, 'Rahmat Hakim', 'Perancangan Wilayah dan Kota', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-05-07', 'hakim25', 0, 'Rahmat1Hakim@gmail.com'),
+(17, 109220004, 'Rudy Budiyono', 'Arsitektur', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-05-15', 'yono97', 0, 'Rudy.Budiyono@gmail.com'),
+(18, 103220002, 'Syahrudin', 'Teknik Industri Pertanian', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-07-18', 'udin90', 0, 'Syahrudin@gmail.com'),
+(19, 110220004, 'Bunga Lestari', 'Perancangan Wilayah dan Kota', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-05-24', 'lestari12', 0, 'Bunga33Lestari@gmail.com'),
+(20, 114220004, 'Angel Lyka', 'Teknik Elektro', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-12-23', 'lyka87', 0, 'Angel69Lyka@gmail.com'),
+(21, 114220021, 'Diaz Ferdinan', 'Teknik Elektro', 3, 'Cisauk', 'Hitori Gotoh.jpeg', '2004-09-06', 'ferdi66', 0, 'Diaz2Ferdinan@gmail.com'),
+(22, 103220034, 'Karina Putri', 'Teknik Industri Pertanian', 3, 'Cimone', 'Hitori Gotoh.jpeg', '2004-03-03', 'putri77', 0, 'Karina1Putri@gmail.com'),
+(23, 110220018, 'Agnes Thea', 'Perancangan Wilayah dan Kota', 3, 'Serpong', 'Hitori Gotoh.jpeg', '2004-06-21', 'thea56', 0, 'Agnes2Thea@gmail.com'),
+(24, 110200003, 'Audrey Lavina', 'Perancangan Wilayah dan Kota', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-02-22', 'lavina32', 0, 'AudreyLavina@gmail.com'),
+(25, 114200004, 'Nova Destriani', 'Teknik Elektro', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-09-17', 'nova76', 0, 'NovaDestriani@gmail.com'),
+(26, 109200004, 'Clarissa Putri', 'Arsitektur', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-10-09', 'clarisa00', 0, 'ClarissaPutri@gmail.com'),
+(27, 109210004, 'Jasmine Megah', 'Arsitektur', 5, 'Serpong', 'Hitori Gotoh.jpeg', '2003-08-07', 'jasmine33', 0, 'JasmineMegah@gmail.com'),
+(28, 114200076, 'Nayla Putri', 'Teknik Elektro', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-04-23', 'nayla44', 0, 'NaylaPutri@gmail.com'),
+(29, 113210065, 'Fayed Yamani', 'Teknik Industri', 5, 'Serpong', 'Hitori Gotoh.jpeg', '2003-12-12', 'fayed10', 0, 'Fayed66Yamani@gmail.com'),
+(30, 114190043, 'Riska Intan Purwoto', 'Teknik Elektro', 6, 'Serpong', 'Hitori Gotoh.jpeg', '2000-06-09', 'intan18', 0, 'RiskaIntanPurwoto55@gmail.com'),
+(31, 114220022, 'Mita Iska', 'Teknik Elektro', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-05-18', 'mita14', 0, 'Mita.Iska@gmail.com'),
+(32, 110200034, 'Salsabila Cinta Lestari', 'Perancangan Wilayah dan Kota', 6, 'Pamulang', 'Hitori Gotoh.jpeg', '2002-04-06', 'salsa20', 0, 'SalsabilaCintaLestari@gmail.com'),
+(33, 115210044, 'Widya Ferdinan', 'Teknik Informatika', 5, 'Pamulang', 'Hitori Gotoh.jpeg', '2002-12-30', 'widya99', 0, 'WidyaFerdinan@gmail.com'),
+(34, 115200090, 'Adi Kusuma', 'Teknik Informatika', 6, 'Pamulang', 'Hitori Gotoh.jpeg', '2002-07-26', 'adi27', 0, 'AdiKusuma@gmail.com'),
+(35, 115220044, 'Satria Aji Kusumo', 'Teknik Informatika', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-02-13', 'aji25', 0, 'SatriaAji22@gmail.com'),
+(36, 115220054, 'Satrio Aji Kusumo', 'Teknik Informatika', 3, 'Pamulang', 'Hitori Gotoh.jpeg', '2004-02-17', 'aji26', 0, 'SatrioKusumo22@gmail.com'),
+(37, 115190002, 'Umar Bakri', 'Teknik Informatika', 5, 'Pamulang', 'Hitori Gotoh.jpeg', '2000-01-03', 'umar67', 0, 'UmarBakri@gmail.com'),
+(38, 115200024, 'Bima Wasdianto', 'Teknik Informatika', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-03-14', 'bima11', 0, 'BimaWasdianto@gmail.com'),
+(39, 115200014, 'Raka Sanjaya', 'Teknik Informatika', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-09-23', 'raka82', 0, 'RakaSanjaya@gmail.com'),
+(40, 113200074, 'Dedy Rahmadi', 'Teknik Industri', 7, 'Serpong', 'Hitori Gotoh.jpeg', '2002-06-12', 'madi25', 0, 'Dedy78Rahmadi@gmail.com'),
+(41, 110190003, 'Ahmad Hakim', 'Perancangan Wilayah dan Kota', 5, 'Serpong', 'Hitori Gotoh.jpeg', '2001-01-17', 'hakim14', 0, 'Ahmad.Hakim@gmail.com'),
+(42, 115220064, 'Panji Rajali', 'Teknik Informatika', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-08-25', 'panji03', 0, 'Panji.Rajali@gmail.com'),
+(43, 113220041, 'Dedy Cahyadi', 'Teknik Industri', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-06-12', 'dedi08', 0, 'Dedy67Cahyadi@gmail.com'),
+(44, 114200005, 'Siti Nor Salma', 'Teknik Elektro', 7, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-03-19', 'salma08', 0, 'SitiSalma23@gmail.com'),
+(45, 114190008, 'Siti Aisyah', 'Teknik Elektro', 7, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-09-27', 'siti45', 0, 'Siti.Aisyah@gmail.com'),
+(46, 113220089, 'Reggie Purba', 'Teknik Industri', 1, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2003-11-09', 'purba03', 0, 'Reggie.Purba@gmail.com'),
+(47, 113220032, 'Herlangga Putra', 'Teknik Industri', 1, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2003-10-23', 'putra76', 0, 'HerlanggaPutra@gmail.com'),
+(48, 113220026, 'Dinia Saputri', 'Teknik Industri', 3, 'Gunung Sindur', 'Hitori Gotoh.jpeg', '2004-09-16', 'dinia63', 0, 'DiniaSaputri@gmail.com'),
+(49, 113220076, 'Anandita Cety', 'Teknik Industri', 3, 'Alam Sutera', 'Hitori Gotoh.jpeg', '2004-10-10', 'cety32', 0, 'Anandita9Cety@gmail.com'),
+(50, 113220020, 'Dewi Ferbriani', 'Teknik Industri', 1, 'Alam Sutera', 'Hitori Gotoh.jpeg', '2004-03-26', 'dewi52', 0, 'Dewi.Ferbriani@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -176,13 +227,14 @@ CREATE TABLE `pengajuan` (
 --
 
 INSERT INTO `pengajuan` (`id_pengajuan`, `nrp`, `id_jnskegiatan`, `status`, `tanggal_pengajuan`, `nilai`, `foto`) VALUES
-(1, 1152200006, 1, 1, '2024-01-01', 25, ''),
-(2, 1152200006, 1, 1, '2024-01-01', 20, ''),
-(3, 1152200006, 14, 2, '2024-01-01', 20, ''),
-(4, 1152200006, 63, 2, '2024-01-01', 10, ''),
-(5, 1152200006, 48, 1, '2024-01-01', 30, '111123.JPG'),
-(6, 1152200006, 51, 2, '2024-01-01', 25, '1678189237144.jpg'),
-(7, 1152200006, 45, 1, '2024-01-01', 30, 'ab9fc248a1905231ecdafbc963df64c6.png');
+(1, 101210001, 22, 1, '0000-00-00', 20, 'download__1_-removebg-preview.png'),
+(2, 101210001, 1, 1, '0000-00-00', 20, 'download (1).jpeg'),
+(3, 101210002, 9, 1, '0000-00-00', 10, 'bocchi-removebg-preview-removebg-preview1.png'),
+(4, 101210001, 1, 1, '0000-00-00', 20, 'download (1).jpeg'),
+(5, 101210001, 1, 2, '0000-00-00', 20, 'dazai.png'),
+(6, 101210001, 50, 2, '2024-01-07', 20, 'Bocchi the rock!  Bocchi peeker Gotou Sticker Anime Stickers Gotou Bocchi Sticker Declas Sticker Sticker by SNArtAnimeShop.jpeg'),
+(7, 101210001, 42, 2, '2024-01-07', 30, ''),
+(8, 101210001, 9, 2, '2024-01-07', 10, '{The Villainess is gone}.jpeg');
 
 -- --------------------------------------------------------
 
@@ -207,7 +259,7 @@ CREATE TABLE `pka` (
 --
 
 INSERT INTO `pka` (`idpka`, `jabatan`, `nama`, `username`, `password`, `foto`, `tgl_lahir`, `email`, `alamat`) VALUES
-(10, 'Budi', 'Budianto', 'budi123', 'budi23', '{The Villainess is gone}.jpeg', '2024-01-02', 'budia@gmail.com', 'Perum');
+(18, 'Ketua', 'Budiman', 'budiman', 'req', 'Hitori Gotoh.png', '2024-01-01', 'budiman@gmail.com', 'Perumnasi');
 
 --
 -- Indexes for dumped tables
@@ -232,7 +284,7 @@ ALTER TABLE `jenis_kegiatan`
 ALTER TABLE `mahasiswa`
   ADD PRIMARY KEY (`id_mhs`),
   ADD UNIQUE KEY `nrp` (`nrp`),
-  ADD KEY `nilai` (`nilai`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indeks untuk tabel `pengajuan`
@@ -268,19 +320,19 @@ ALTER TABLE `jenis_kegiatan`
 -- AUTO_INCREMENT untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mhs` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_mhs` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajuan`
 --
 ALTER TABLE `pengajuan`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pka`
 --
 ALTER TABLE `pka`
-  MODIFY `idpka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idpka` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

@@ -84,79 +84,96 @@ include '../koneksi.php';
       </div>
     </div>
 
-    <Section class="pengajuan-form">
-      <h3>PENGAJUAN SKKM</h3>
-      <form class="form-data" method="post" action="tambah.php" enctype="multipart/form-data">
-        <div class="mb-3">
-          <input type="hidden" name="nrp" class="form-control" id="nrp" placeholder="NRP" value="<?php echo $row1['nrp']?>">
-        </div>
-        <div class="mb-3">
-          <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
-          <select class="form-select" id="nama_kegiatan" name="nama_kegiatan">
-            <option selected disabled>Nama Kegiatan</option>
-            <?php
-              $sql1 = "SELECT DISTINCT nama_kegiatan FROM jenis_kegiatan";
-              $q1 = mysqli_query($koneksi, $sql1);
-
-              if ($q1 && mysqli_num_rows($q1) > 0) {
-                while ($row = mysqli_fetch_array($q1)) {
-                   echo '<option value="' . $row['nama_kegiatan'] . '">' . $row['nama_kegiatan'] . '</option>';
-                }
-              } else {
-                echo '<option value="">Data Belum Tersedia</option>';
-              }
-            ?>
-          </select>
+    <div class="d-flex flex-column w-100">
+      <Section class="pengajuan-form">
+        <h3>PENGAJUAN SKKM</h3>
+        <form class="form-data" method="post" action="tambah.php" enctype="multipart/form-data">
+          <div class="mb-3">
+            <input type="hidden" name="nrp" class="form-control" id="nrp" placeholder="NRP" value="<?php echo $row1['nrp']?>">
           </div>
           <div class="mb-3">
-            <label for="bentuk_kegiatan">Bentuk Kegiatan</label>
-            <select class="form-select" id="bentuk_kegiatan" name="bentuk_kegiatan">
-              <option selected disabled>Bentuk Kegiatan</option>
+            <label for="nama_kegiatan" class="form-label">Nama Kegiatan</label>
+            <select class="form-select" id="nama_kegiatan" name="nama_kegiatan">
+              <option selected disabled>Nama Kegiatan</option>
               <?php
-                $sql1 = "SELECT DISTINCT bentuk_kegiatan FROM jenis_kegiatan";
+                $sql1 = "SELECT DISTINCT nama_kegiatan FROM jenis_kegiatan";
                 $q1 = mysqli_query($koneksi, $sql1);
-
+  
                 if ($q1 && mysqli_num_rows($q1) > 0) {
                   while ($row = mysqli_fetch_array($q1)) {
-                    echo '<option value="' . $row['bentuk_kegiatan'] . '">' . $row['bentuk_kegiatan'] . '</option>';
+                     echo '<option value="' . $row['nama_kegiatan'] . '">' . $row['nama_kegiatan'] . '</option>';
                   }
                 } else {
                   echo '<option value="">Data Belum Tersedia</option>';
                 }
               ?>
             </select>
-          </div>
-          <div class="mb-3">
-            <label for="tingkatan">Tingkatan</label>
-            <select class="form-select" id="tingkatan" name="tingkatan">
-              <option selected disabled>Bentuk Kegiatan</option>
-              <?php
-                $sql1 = "SELECT DISTINCT tingkatan FROM jenis_kegiatan";
-                $q1 = mysqli_query($koneksi, $sql1);
-
-                if ($q1 && mysqli_num_rows($q1) > 0) {
-                  while ($row = mysqli_fetch_array($q1)) {
-                    echo '<option value="' . $row['tingkatan'] . '">' . $row['tingkatan'] . '</option>';
+            </div>
+            <div class="mb-3">
+              <label for="bentuk_kegiatan">Bentuk Kegiatan</label>
+              <select class="form-select" id="bentuk_kegiatan" name="bentuk_kegiatan">
+                <option selected disabled>Bentuk Kegiatan</option>
+                <?php
+                  $sql1 = "SELECT DISTINCT bentuk_kegiatan FROM jenis_kegiatan";
+                  $q1 = mysqli_query($koneksi, $sql1);
+  
+                  if ($q1 && mysqli_num_rows($q1) > 0) {
+                    while ($row = mysqli_fetch_array($q1)) {
+                      echo '<option value="' . $row['bentuk_kegiatan'] . '">' . $row['bentuk_kegiatan'] . '</option>';
+                    }
+                  } else {
+                    echo '<option value="">Data Belum Tersedia</option>';
                   }
-                } else {
-                  echo '<option value="">Data Belum Tersedia</option>';
-                }
-              ?>
-            </select>
+                ?>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tingkatan">Tingkatan</label>
+              <select class="form-select" id="tingkatan" name="tingkatan">
+                <option selected disabled>Bentuk Kegiatan</option>
+                <?php
+                  $sql1 = "SELECT DISTINCT tingkatan FROM jenis_kegiatan";
+                  $q1 = mysqli_query($koneksi, $sql1);
+  
+                  if ($q1 && mysqli_num_rows($q1) > 0) {
+                    while ($row = mysqli_fetch_array($q1)) {
+                      echo '<option value="' . $row['tingkatan'] . '">' . $row['tingkatan'] . '</option>';
+                    }
+                  } else {
+                    echo '<option value="">Data Belum Tersedia</option>';
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="tgl_pengajuan" class="form-label">Tanggal Pengajuan</label>
+              <input type="date" name="tgl_pengajuan"class="form-control" id="tgl_pengajuan" placeholder="" value="<?php echo date('Y-m-d'); ?>">
+            </div>
+            <div class="mb-3">
+              <label for="foto" class="form-label">Foto</label>
+              <input type="file" name="foto" class="form-control" id="foto" placeholder="foto" required="">
           </div>
-          <div class="mb-3">
-            <label for="tgl_pengajuan" class="form-label">Tanggal Pengajuan</label>
-            <input type="date" name="tgl_pengajuan"class="form-control" id="tgl_pengajuan" placeholder="" value="<?php echo date('Y-m-d'); ?>" disabled>
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Submit form</button>
+            </div>
+        </form>
+      </Section>
+
+      <div class="footer mt-auto mb-1 bg-body-tertiary">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="foto" class="form-label">Foto</label>
-            <input type="file" name="foto" class="form-control" id="foto" placeholder="foto">
-        </div>
-          <div class="col-12">
-            <button class="btn btn-primary" type="submit">Submit form</button>
-          </div>
-      </form>
-    </Section>
+        </footer>
+      </div>       
+    </div>
+
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

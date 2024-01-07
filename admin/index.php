@@ -119,7 +119,10 @@ include "../koneksi.php";
               <div class="row">
                 <div class="col col-12 col-9 d-flex ">
                   <img class="me-3" src="https://assets.siakadcloud.com/assets/v1/v2/icon/dashboard/sevi.svg" alt="">
-                  <h4 class="align-self-center ">Halo <strong> <?php echo $row1['nama'] ?></strong> <br> Selamat Datang di Website SKKM Institute Teknologi Indonesia</h4>
+                  <div class="align-self-center ">
+                    <h4>Halo <strong> <?php echo $row1['nama'] ?></strong> <br> Selamat Datang di Website SKKM Institute Teknologi Indonesia<br></h4>
+                    <p>Saat ini terdapat <strong> <?php echo $totalData ?></strong> Pengajuan</p>
+                  </div>
                 </div>								
               </div>
             </div>

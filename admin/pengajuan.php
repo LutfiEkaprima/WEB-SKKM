@@ -33,19 +33,50 @@ if (isset($_GET['op'])) {
 if($op == "setuju"){
   $id = $_GET['id'];
 
-  $querySQL = "Select * FROM pengajuan WHERE id_pengajuan = '$id'";
+  $querySQL = "SELECT * FROM pengajuan WHERE id_pengajuan = '$id'";
   $hasil = $koneksi->query($querySQL);
   $rowcek = $hasil->fetch_assoc();
 
-  $querySQL12 = "UPDATE mahasiswa SET nilai = nilai + '{$rowcek['nilai']}' WHERE nrp = '{$rowcek['nrp']}'";
-  $querySQL = "UPDATE pengajuan SET status = 1 WHERE id_pengajuan = '$id'";
-  $hasil = $koneksi->query($querySQL);
-  $hasil = $koneksi->query($querySQL12);
+  // Mengambil nilai yang akan ditambahkan
+  $nilai_baru = $rowcek['nilai'];
+
+  // Mengambil nilai saat ini dari tabel mahasiswa
+  $nrp = $rowcek['nrp'];
+  $queryNilai = "SELECT nilai FROM mahasiswa WHERE nrp = '$nrp'";
+  $hasilNilai = $koneksi->query($queryNilai);
+  $rowNilai = $hasilNilai->fetch_assoc();
+  $nilai_sekarang = $rowNilai['nilai'];
+
+  // Menghitung nilai baru yang dibatasi maksimal 100
+  $nilai_total = min(100, $nilai_sekarang + $nilai_baru);
+
+  // Update nilai di tabel mahasiswa
+  $querySQL12 = "UPDATE mahasiswa SET nilai = '$nilai_total' WHERE nrp = '$nrp'";
+  $koneksi->query($querySQL12);
+
+  // Update status pengajuan
+  $queryUpdatePengajuan = "UPDATE pengajuan SET status = 1 WHERE id_pengajuan = '$id'";
+  $koneksi->query($queryUpdatePengajuan);
+
+  echo '<script type="text/javascript">
+          window.onload = function () {
+            $("#successModal").modal("show");
+          }
+        </script>';
+  header("Refresh: 1; URL=pengajuan.php");
+
 } else if($op == "tolak"){
   $id = $_GET['id'];
   $querySQL = "UPDATE pengajuan SET status = 2 WHERE id_pengajuan = '$id'";
-  $hasil = $koneksi->query($querySQL);
+  $koneksi->query($querySQL);
+  echo '<script type="text/javascript">
+          window.onload = function () {
+            $("#tolakModal").modal("show");
+          }
+        </script>';
+  header("Refresh: 1; URL=pengajuan.php");
 }
+
 
 ?>
 
@@ -257,9 +288,43 @@ if($op == "setuju"){
 
     </div>
   </div>
-  
 
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Berhasil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Pengajuan Disetujui
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="modal fade" id="tolakModal" tabindex="-1" aria-labelledby="tolakModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="tolakModalLabel">Gagal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                Pengajuan Ditolak
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

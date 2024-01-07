@@ -80,45 +80,58 @@ include "role.php";
       </div>
     </div>
     
-    <div class="d-flex flex-lg-wrap p-5">
-      <?php
-        $nrp = $row1['nrp'];
-        $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
-        FROM pengajuan
-        INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
-        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan where pengajuan.nrp = '$nrp' and pengajuan.status = 1";
-
-        $result = $koneksi->query($sql);
-
-        if ($result->num_rows > 0) {
-                  // output data of each row
-          while($row = $result->fetch_assoc()) {
-            echo "
-            <div class='me-5'> 
-              <div class='card' style='width: 20rem;'>
-                <img src='../asset/sertif/". $row['foto'] ."' class='card-img-top' alt='Tidak Ada Gambar' width='200' height='200' >
-                <div class='card-body'>
-                  <h5 class='card-title'>". $row['nama_kegiatan'] ."</h5>
-                  <p class='card-text'>Bentuk Kegiatan : ". $row['bentuk_kegiatan'] ."</p> 
-                  <p class='card-text'>Tingkatan : ". $row['tingkatan'] ."</p>
-                  <a href='#' class='btn btn-primary'>Go somewhere</a>
+    <div class="d-flex flex-column w-100">
+      <div class="d-flex flex-lg-wrap p-5">
+        <?php
+          $nrp = $row1['nrp'];
+          $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
+          FROM pengajuan
+          INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
+          INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan where pengajuan.nrp = '$nrp' and pengajuan.status = 1";
+  
+          $result = $koneksi->query($sql);
+  
+          if ($result->num_rows > 0) {
+                    // output data of each row
+            while($row = $result->fetch_assoc()) {
+              echo "
+              <div class='me-5'> 
+                <div class='card' style='width: 20rem;'>
+                  <img src='../asset/sertif/". $row['foto'] ."' class='card-img-top' alt='Tidak Ada Gambar' width='200' height='200' >
+                  <div class='card-body'>
+                    <h5 class='card-title'>". $row['nama_kegiatan'] ."</h5>
+                    <p class='card-text'>Bentuk Kegiatan : ". $row['bentuk_kegiatan'] ."</p> 
+                    <p class='card-text'>Tingkatan : ". $row['tingkatan'] ."</p>
+                    <a href='#' class='btn btn-primary'>Go somewhere</a>
+                  </div>
                 </div>
               </div>
-            </div>
-            ";
+              ";
+            }
+          } else {
+            echo "Belum Ada Sertifikat yang disetujui";
           }
-        } else {
-          echo "Belum Ada Sertifikat yang disetujui";
-        }
+  
+        ?>
+      </div>
 
-      ?>
+      <div class="footer mt-auto mb-1 bg-body-tertiary">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+
     </div>
-    
-
-
   </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

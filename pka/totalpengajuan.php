@@ -13,16 +13,14 @@ $whereClause = !empty($search) ? "WHERE pengajuan.nrp LIKE '%$search%' OR jenis_
 $sqlQuery = "SELECT pengajuan.id_pengajuan, pengajuan.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
             FROM pengajuan
             INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan
-            $whereClause AND pengajuan.status = 0 LIMIT $offset, $studentsPerPage";
+            $whereClause LIMIT $offset, $studentsPerPage";
 
 $result1 = $koneksi->query($sqlQuery);
 
-$whereTotal = empty($whereClause) ? 'WHERE' : $whereClause . ' AND';
-$totalStudentsQuery = "SELECT COUNT(*) as total FROM pengajuan INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan $whereTotal pengajuan.status = 0";
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM pengajuan INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan $whereClause";
 $totalResult = $koneksi->query($totalStudentsQuery);
 $totalData = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalData / $studentsPerPage);
-
 
 if (isset($_GET['op'])) {
   $op = $_GET['op'];
@@ -33,50 +31,19 @@ if (isset($_GET['op'])) {
 if($op == "setuju"){
   $id = $_GET['id'];
 
-  $querySQL = "SELECT * FROM pengajuan WHERE id_pengajuan = '$id'";
+  $querySQL = "Select * FROM pengajuan WHERE id_pengajuan = '$id'";
   $hasil = $koneksi->query($querySQL);
   $rowcek = $hasil->fetch_assoc();
 
-  // Mengambil nilai yang akan ditambahkan
-  $nilai_baru = $rowcek['nilai'];
-
-  // Mengambil nilai saat ini dari tabel mahasiswa
-  $nrp = $rowcek['nrp'];
-  $queryNilai = "SELECT nilai FROM mahasiswa WHERE nrp = '$nrp'";
-  $hasilNilai = $koneksi->query($queryNilai);
-  $rowNilai = $hasilNilai->fetch_assoc();
-  $nilai_sekarang = $rowNilai['nilai'];
-
-  // Menghitung nilai baru yang dibatasi maksimal 100
-  $nilai_total = min(100, $nilai_sekarang + $nilai_baru);
-
-  // Update nilai di tabel mahasiswa
-  $querySQL12 = "UPDATE mahasiswa SET nilai = '$nilai_total' WHERE nrp = '$nrp'";
-  $koneksi->query($querySQL12);
-
-  // Update status pengajuan
-  $queryUpdatePengajuan = "UPDATE pengajuan SET status = 1 WHERE id_pengajuan = '$id'";
-  $koneksi->query($queryUpdatePengajuan);
-
-  echo '<script type="text/javascript">
-          window.onload = function () {
-            $("#successModal").modal("show");
-          }
-        </script>';
-  header("Refresh: 1; URL=pengajuan.php");
-
+  $querySQL12 = "UPDATE mahasiswa SET nilai = nilai + '{$rowcek['nilai']}' WHERE nrp = '{$rowcek['nrp']}'";
+  $querySQL = "UPDATE pengajuan SET status = 1 WHERE id_pengajuan = '$id'";
+  $hasil = $koneksi->query($querySQL);
+  $hasil = $koneksi->query($querySQL12);
 } else if($op == "tolak"){
   $id = $_GET['id'];
   $querySQL = "UPDATE pengajuan SET status = 2 WHERE id_pengajuan = '$id'";
-  $koneksi->query($querySQL);
-  echo '<script type="text/javascript">
-          window.onload = function () {
-            $("#tolakModal").modal("show");
-          }
-        </script>';
-  header("Refresh: 1; URL=pengajuan.php");
+  $hasil = $koneksi->query($querySQL);
 }
-
 
 ?>
 
@@ -121,7 +88,7 @@ if($op == "setuju"){
   </nav>
 
   <div class="isi-content">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: 100vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height: 100vh;">
       <div class="side-judul">
         <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
@@ -157,12 +124,6 @@ if($op == "setuju"){
           </a>
         </li>
         <li>
-          <a href="datapka.php" class="nav-link link-body-emphasis">
-            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            Data PKA
-          </a>
-        </li>
-        <li>
           <a href="profile.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Profile
@@ -183,22 +144,22 @@ if($op == "setuju"){
         </ul>
       </div>
     </div>
-
+            
     <div class="d-flex flex-column w-100">
       <section class="data_mhs">
-          <div class="d-flex justify-content-between">
-            <h4 class="mb-4">Data Pengajuan Mahasiswa</h4>
-            <form class="mb-3" action="pengajuan.php" method="GET">
+        <div class="d-flex justify-content-between">
+          <h4 class="mb-4">Data Pengajuan Nilai SKKM Mahasiswa</h4>
+            <form class="mb-3" action="totalpengajuan.php" method="GET">
               <div class="input-group">
                 <input type="text" class="form-control" placeholder="Cari NRP..." name="search">
                 <button class="btn btn-outline-primary" type="submit">Cari</button>
-                <?php if (!empty($search)) : ?>
-                  <a href="pengajuan.php" class="btn btn-outline-secondary">Reset</a>
-                <?php endif; ?>
+                  <?php if (!empty($search)) : ?>
+                    <a href="totalpengajuan.php" class="btn btn-outline-secondary">Reset</a>
+                  <?php endif; ?>
               </div>
             </form>
-          </div>
-  
+        </div>
+        <br>
           <table class="table align-middle">
               <thead>
                 <tr>
@@ -209,18 +170,37 @@ if($op == "setuju"){
                   <th scope="col">Tingkatan</th>
                   <th scope="col">Tanggal Pengajuan</th>
                   <th scope="col">Nilai</th>
-                  <th scope="col">Status</th>
                   <th scope="col">Sertifikat</th>
-                  <th scope="col">Aksi</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody class="table-body">
                 <?php
-  
                   if ($result1->num_rows > 0) {
                     // output data of each row
                     while($row = $result1->fetch_assoc()) {
-                      $status = ($row['status'] == 0) ? "Belum Disetujui" : "Disetujui";
+                      if ($row['status'] == 1){
+                          $info = "<button type='button' class='btn btn-success' data-bs-container='body' data-bs-toggle='popover' data-bs-placement='left' data-bs-content='Disetujui'>
+                          <div class='status'> 
+                              <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-lg' viewBox='0 0 16 16'>
+                                  <path d='M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022'/>
+                              </svg>
+                          </div>
+                          </button>";
+                          } else if ($row['status'] == 2){
+                          $info = "<button type='button' class='btn btn-danger' data-bs-container='body' data-bs-toggle='popover' data-bs-placement='left' data-bs-content='Ditolak'> 
+                          <div class='status'>
+                              <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-x-lg' viewBox='0 0 16 16'>
+                                  <path d='M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z'/>
+                              </svg>
+                          </div>
+                          </button>";
+                          } else {
+                          $info = "<button type='button' class='btn btn-warning' data-bs-container='body' data-bs-toggle='popover' data-bs-placement='left' data-bs-content='Pending'>
+                              <span class='spinner-border spinner-border-sm' aria-hidden='true'></span>
+                              <span class='visually-hidden' role='status'>Pending</span>
+                          </button>";
+                      }
                       echo"
                         <tr> 
                           <td>".$row["id_pengajuan"]."</td>
@@ -230,7 +210,6 @@ if($op == "setuju"){
                           <td>".$row["tingkatan"]."</td>
                           <td>".$row["tanggal_pengajuan"]."</td>
                           <td>".$row["nilai"]."</td>
-                          <td>" . $status . "</td>
                           <td>
                             <div> 
                               <a class='btn btn-primary' role='button' href='readsertif.php?id=".$row["id_pengajuan"]."'>Lihat Sertifikat</a>
@@ -238,8 +217,7 @@ if($op == "setuju"){
                           </td>
                           <td>
                             <div>
-                              <a class='btn btn-success' role='button' onclick='return confirm(\"Setujui Pengajuan?\")' href='pengajuan.php?op=setuju&id=".$row["id_pengajuan"]."'>Setujui</a>
-                              <a class='btn btn-warning' role='button' onclick='return confirm(\"Tolak Pengajuan?\")' href='pengajuan.php?op=tolak&id=".$row["id_pengajuan"]."'>Tolak</a>
+                              $info
                             </div>
                           </td>
                         </tr>";
@@ -248,31 +226,30 @@ if($op == "setuju"){
                 ?>
               </tbody>
           </table>
-  
           <div class='d-flex justify-content-between align-items-center'> 
-              <a class='btn btn-primary' href='totalpengajuan.php' role='button'>Lihat Semua Pengajuan</a>
-              <?php if ($totalPages > 0) { ?>
-                <ul class='pagination justify-content-end'>
-                  <li class='page-item'>
-                    <a class='page-link' href='pengajuan.php?page=<?php echo ($page > 1) ? ($page - 1) : 1 ?>&search=<?php echo urlencode($search) ?>' aria-label='Previous'>
-                      <span aria-hidden='true'>&laquo;</span>
-                    </a>
-                  </li>
-                  <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                    <li class='page-item <?php echo ($i == $page) ? 'active' : '' ?>'>
-                      <a class='page-link' href='pengajuan.php?page=<?php echo $i ?>&search=<?php echo urlencode($search) ?>'><?php echo $i ?></a>
+                <a class='btn btn-primary' href='pengajuan.php' role='button'>Kembali</a>
+                <?php if ($totalPages > 0) { ?>
+                  <ul class='pagination justify-content-end'>
+                    <li class='page-item'>
+                      <a class='page-link' href='totalpengajuan.php?page=<?php echo ($page > 1) ? ($page - 1) : 1 ?>&search=<?php echo urlencode($search) ?>' aria-label='Previous'>
+                        <span aria-hidden='true'>&laquo;</span>
+                      </a>
                     </li>
-                  <?php } ?>
-                  <li class='page-item'>
-                    <a class='page-link' href='pengajuan.php?page=<?php echo ($page < $totalPages) ? ($page + 1) : $totalPages ?>&search=<?php echo urlencode($search) ?>' aria-label='Next'>
-                      <span aria-hidden='true'>&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              <?php } ?>
-            </div>
+                    <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                      <li class='page-item <?php echo ($i == $page) ? 'active' : '' ?>'>
+                        <a class='page-link' href='totalpengajuan.php?page=<?php echo $i ?>&search=<?php echo urlencode($search) ?>'><?php echo $i ?></a>
+                      </li>
+                    <?php } ?>
+                    <li class='page-item'>
+                      <a class='page-link' href='totalpengajuan.php?page=<?php echo ($page < $totalPages) ? ($page + 1) : $totalPages ?>&search=<?php echo urlencode($search) ?>' aria-label='Next'>
+                        <span aria-hidden='true'>&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                <?php } ?>
+              </div>
       </section>
-
+      
       <div class="footer mb-1 mt-auto">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
           <div class="footer-content">
@@ -285,47 +262,13 @@ if($op == "setuju"){
           </div>
         </footer>
       </div>
-
+    </div>
     </div>
   </div>
 
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Berhasil</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                Pengajuan Disetujui
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="tolakModal" tabindex="-1" aria-labelledby="tolakModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="tolakModalLabel">Gagal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                Pengajuan Ditolak
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-                    
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="asset/javascript/index.js"></script>
 </body>
 
 </html>

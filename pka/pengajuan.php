@@ -17,8 +17,7 @@ $sqlQuery = "SELECT pengajuan.id_pengajuan, pengajuan.nrp, jenis_kegiatan.nama_k
 
 $result1 = $koneksi->query($sqlQuery);
 
-$whereTotal = empty($whereClause) ? 'WHERE' : $whereClause . ' AND';
-$totalStudentsQuery = "SELECT COUNT(*) as total FROM pengajuan INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan $whereTotal pengajuan.status = 0";
+$totalStudentsQuery = "SELECT COUNT(*) as total FROM pengajuan INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan $whereClause and pengajuan.status = 0";
 $totalResult = $koneksi->query($totalStudentsQuery);
 $totalData = $totalResult->fetch_assoc()['total'];
 $totalPages = ceil($totalData / $studentsPerPage);
@@ -154,12 +153,6 @@ if($op == "setuju"){
           <a href="datamahasiswa.php" class="nav-link link-body-emphasis">
             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
             Data Mahasiswa
-          </a>
-        </li>
-        <li>
-          <a href="datapka.php" class="nav-link link-body-emphasis">
-            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            Data PKA
           </a>
         </li>
         <li>

@@ -17,9 +17,11 @@ if (isset($_POST["username"], $_POST["password"])) {
     } else {
         $sql1 = "SELECT * FROM mahasiswa WHERE nrp = '$username' AND password = '$password'";
         $sql2 = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
+        $sql3 = "SELECT * FROM pka WHERE username = '$username' AND password = '$password'";
         
         $q1 = mysqli_query($koneksi, $sql1);
         $q2 = mysqli_query($koneksi, $sql2);
+        $q3 = mysqli_query($koneksi, $sql3);
 
         if (mysqli_num_rows($q1) > 0) {
             $_SESSION["username"] = $username;
@@ -31,6 +33,11 @@ if (isset($_POST["username"], $_POST["password"])) {
             $_SESSION["password"] = $password;
             $_SESSION["role"] = 'admin'; // Menambahkan informasi peran
             header("location: ./admin?username=$username");
+        } elseif (mysqli_num_rows($q3) > 0) {
+            $_SESSION["username"] = $username;
+            $_SESSION["password"] = $password;
+            $_SESSION["role"] = 'pka'; // Menambahkan informasi peran
+            header("location: ./pka?username=$username");
         } else {
             $err = "Username atau Password salah";
         }

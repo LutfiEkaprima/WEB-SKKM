@@ -115,11 +115,14 @@ include "../koneksi.php";
         <div class="card mb-5 shadow-lg p-3 mb-5">
           <div class="row">
             <div class="col col-12 col-lg-6 main-content">
-              <h1>Dashboard</h1>
+              <h1>Dashboard Admin</h1>
               <div class="row">
                 <div class="col col-12 col-9 d-flex ">
                   <img class="me-3" src="https://assets.siakadcloud.com/assets/v1/v2/icon/dashboard/sevi.svg" alt="">
-                  <h4 class="align-self-center ">Halo <strong> <?php echo $row1['nama'] ?></strong> <br> Selamat Datang di Website SKKM Institute Teknologi Indonesia</h4>
+                  <div class="align-self-center ">
+                    <h4>Halo <strong> <?php echo $row1['nama'] ?></strong> <br> Selamat Datang di Website SKKM Institute Teknologi Indonesia<br></h4>
+                    <p>Saat ini terdapat <strong> <?php echo $totalData ?></strong> Pengajuan</p>
+                  </div>
                 </div>								
               </div>
             </div>

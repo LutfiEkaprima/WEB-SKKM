@@ -123,8 +123,7 @@ if (isset($_POST['submit'])) {
       </div>
     </div>
 
-    
-
+    <div class="d-flex flex-column w-100">
     <div class="col-md-8 offset-lg-1 pb-5 mb-2 mb-lg-4 pt-md-5 mt-n3 mt-md-0 d-flex">
         <div class="ps-md-3 ps-lg-0 mt-md-2 py-md-4">
           <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
@@ -188,7 +187,7 @@ if (isset($_POST['submit'])) {
                     <br>
                     <input type="file" class="form-control form-control-lg" name="foto" id="foto" value="<?php echo $row1['foto'] ?>"></td>
                     <input type="hidden" class="form-control form-control-lg" name="fotoLama" value="<?php echo $row1['foto'] ?>">
-                </div>
+                  </div>
                   <div class="col-sm-12 mb-4">
                     <label for="alamat" class="form-label fs-base">Alamat</small></label>
                     <textarea type="text" name="alamat" class="form-control form-control-lg" id="alamat" placeholder="Alamat" rows="5"><?php echo $row1['alamat']?></textarea>
@@ -207,8 +206,25 @@ if (isset($_POST['submit'])) {
         </div>
       </div>
       </div>
+
+      <div class="footer mt-auto mb-1 bg-body-tertiary">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>       
     </div>
-  </div>
+
+    </div>
+
+    
+    </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>

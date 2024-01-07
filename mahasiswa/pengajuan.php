@@ -11,7 +11,8 @@ $result = $koneksi->query($sqlQuery);
 $sql = "SELECT mahasiswa.nrp, jenis_kegiatan.nama_kegiatan, jenis_kegiatan.bentuk_kegiatan, jenis_kegiatan.tingkatan, pengajuan.foto, pengajuan.tanggal_pengajuan, pengajuan.nilai, pengajuan.status
         FROM pengajuan
         INNER JOIN mahasiswa ON pengajuan.nrp = mahasiswa.nrp
-        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan";
+        INNER JOIN jenis_kegiatan ON pengajuan.id_jnskegiatan = jenis_kegiatan.id_jnskegiatan
+        where mahasiswa.nrp='$nrp'";
 
 $result = $koneksi->query($sql);
 ?>
@@ -94,53 +95,69 @@ $result = $koneksi->query($sql);
       </div>
     </div>
 
-    <section class="data_mhs p-5 w-100">
-      <h4>Data Mahasiswa</h4>
-      <nav>
-        <a class="btn btn-primary mb-3" href="pengajuanmahasiswa.php" role="button">Ajukan Sertifikat</a>
-      </nav>
-
-        <table class="table align-middle text-center ">
-            <thead>
-              <tr>
-                <th scope="col">NRP</th>
-                <th scope="col">Nama Kegiatan</th>
-                <th scope="col">Bentuk Kegiatan</th>
-                <th scope="col">Tingkatan</th>
-                <th scope="col">Tanggal Pengajuan</th>
-                <th scope="col">Nilai</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody class="table-body">
-              <?php
-              if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                  if ($row['status'] == 0) {
-                    $status = "Menunggu Persetujuan";
-                  } elseif ($row['status'] == 1) {
-                    $status = "Disetujui";
-                  } elseif ($row['status'] == 2) {
-                    $status = "Ditolak";
+    <div class="d-flex flex-column w-100">
+      <section class="data_mhs p-5 w-100">
+        <h4>Data Mahasiswa</h4>
+        <nav>
+          <a class="btn btn-primary mb-3" href="pengajuanmahasiswa.php" role="button">Ajukan Sertifikat</a>
+        </nav>
+  
+          <table class="table align-middle text-center ">
+              <thead>
+                <tr>
+                  <th scope="col">NRP</th>
+                  <th scope="col">Nama Kegiatan</th>
+                  <th scope="col">Bentuk Kegiatan</th>
+                  <th scope="col">Tingkatan</th>
+                  <th scope="col">Tanggal Pengajuan</th>
+                  <th scope="col">Nilai</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody class="table-body">
+                <?php
+                if ($result->num_rows > 0) {
+                  while ($row = $result->fetch_assoc()) {
+                    if ($row['status'] == 0) {
+                      $status = "Menunggu Persetujuan";
+                    } elseif ($row['status'] == 1) {
+                      $status = "Disetujui";
+                    } elseif ($row['status'] == 2) {
+                      $status = "Ditolak";
+                    }
+                    echo "<tr>";
+                    echo "<td>" . $row['nrp'] . "</td>";
+                    echo "<td>" . $row['nama_kegiatan'] . "</td>";
+                    echo "<td>" . $row['bentuk_kegiatan'] . "</td>";
+                    echo "<td>" . $row['tingkatan'] . "</td>";
+                    echo "<td>" . $row['tanggal_pengajuan'] . "</td>";
+                    echo "<td>" . $row['nilai'] . "</td>";
+                    echo "<td>" . $status . "</td>";
+                    echo "</tr>";
                   }
-                  echo "<tr>";
-                  echo "<td>" . $row['nrp'] . "</td>";
-                  echo "<td>" . $row['nama_kegiatan'] . "</td>";
-                  echo "<td>" . $row['bentuk_kegiatan'] . "</td>";
-                  echo "<td>" . $row['tingkatan'] . "</td>";
-                  echo "<td>" . $row['tanggal_pengajuan'] . "</td>";
-                  echo "<td>" . $row['nilai'] . "</td>";
-                  echo "<td>" . $status . "</td>";
-                  echo "</tr>";
                 }
-              }
-              ?>
-            </tbody>
-        </table>
+                ?>
+              </tbody>
+          </table>
+  
+      </section>
 
-    </section>
+      <div class="footer mt-auto mb-1 bg-body-tertiary">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+          <div class="footer-content">
+            <div class="col-md-4 px-2 d-flex align-items-center">
+              <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+              </a>
+              <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+            </div>
+          </div>
+        </footer>
+      </div>       
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 
 </html>

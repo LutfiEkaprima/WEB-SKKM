@@ -4,7 +4,7 @@ include "role.php";
 include "../koneksi.php";
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1; 
-$studentsPerPage = 5; 
+$studentsPerPage = 15; 
 $offset = ($page - 1) * $studentsPerPage;
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -226,7 +226,7 @@ if($op == "setuju"){
                 ?>
               </tbody>
           </table>
-          <div class='d-flex justify-content-between align-items-center'> 
+              <div class='d-flex justify-content-between align-items-center'> 
                 <a class='btn btn-primary' href='pengajuan.php' role='button'>Kembali</a>
                 <?php if ($totalPages > 0) { ?>
                   <ul class='pagination justify-content-end'>

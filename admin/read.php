@@ -123,8 +123,18 @@ $rowmhs = $resultmhs->fetch_assoc();
                             <div class="row">
                                 <h1 class="me-5">Data Mahasiswa</h1>
                                 <hr>
-                                <div class="col-4 d-flex">
+                                <div class="col-12">
                                     <img src="../asset/foto/mhs/<?php echo $rowmhs['foto']?>" alt="tidak ada foto" width="300">
+                                        <div class="row">
+                                            <div class="card shadow-lg">
+                                                <div class="col-12">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                                 <div class="pt-4">
                                     <hr>

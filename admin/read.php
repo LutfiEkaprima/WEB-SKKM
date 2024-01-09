@@ -17,6 +17,7 @@ $rowmhs = $resultmhs->fetch_assoc();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - View Data Mahasiswa</title>
+    <link rel="icon" type="image/x-icon" href="asset/img/Institut Teknologi Indonesia.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="asset/style/style.css">
 </head>
@@ -123,17 +124,59 @@ $rowmhs = $resultmhs->fetch_assoc();
                             <div class="row">
                                 <h1 class="me-5">Data Mahasiswa</h1>
                                 <hr>
-                                <div class="col-12">
-                                    <img src="../asset/foto/mhs/<?php echo $rowmhs['foto']?>" alt="tidak ada foto" width="300">
-                                        <div class="row">
-                                            <div class="card shadow-lg">
-                                                <div class="col-12">
-                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-12 d-flex">
+                                    <img src="../asset/foto/mhs/<?php echo $rowmhs['foto']?>" alt="tidak ada foto" width="300" height="300" class="shadow p-3 rounded align-self-center border border-black">
+                                        <div class="card shadow-lg w-100 ms-3 fs-5">
+                                            <div class="row">
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">NRP</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['nrp']?>">
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Nama</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['nama']?>">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Semester</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['semester']?>">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Jurusan</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['jurusan']?>">
+                                                    </div>
+                                                </div>                                               
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Nilai</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['nilai']?>">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Tanggal Lahir</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['tgl_lahir']?>">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['email']?>">
+                                                    </div>
+                                                </div>
+                                                <div class="mt-1 ms-4 d-flex">
+                                                    <label for="staticEmail" class="col-sm-2 col-form-label">Alamat</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" readonly="" class="form-control-plaintext" id="staticEmail" value=": <?php echo $rowmhs['alamat']?>">
+                                                    </div>
+                                                </div>
+                                            </div>                               
                                         </div>
                                 </div>
                                 <div class="pt-4">
@@ -147,15 +190,15 @@ $rowmhs = $resultmhs->fetch_assoc();
             </div>
             <div class="footer mb-1 mt-auto">
                 <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
-                <div class="footer-content">
-                    <div class="col-md-4 px-2 d-flex align-items-center">
-                    <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                        <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
-                    </a>
-                    <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+                    <div class="footer-content">
+                        <div class="col-md-4 px-2 d-flex align-items-center">
+                            <a href="#" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                                <img src="./asset/img/iti.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-center">
+                            </a>
+                            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 Institut Teknologi Indonesia</span>
+                        </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
             </div>
         </div>
     </div>

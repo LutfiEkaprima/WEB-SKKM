@@ -18,7 +18,8 @@ $result = $koneksi->query($sqlQuery);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahasiswa</title>
+    <title>Mahasiswa - Profile</title>
+    <link rel="icon" type="image/x-icon" href="asset/img/Institut Teknologi Indonesia.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="asset/style/style.css">
 </head>
@@ -95,7 +96,7 @@ $result = $koneksi->query($sqlQuery);
           <h1 class="h2 pt-xl-1 pb-3">Account Details</h1>
           <div>
             <div>
-              <div class="bg-body rounded-3 shadow-sm mb-4 p-4 d-flex">
+              <div class="bg-body rounded-3 shadow-lg mb-4 p-4 d-flex">
                 <div class="d-flex align-items-center mb-4 me-5">
                 <img src="../asset/foto/mhs/<?php echo $row1['foto']?>" class="rounded-circle me-3" width="180" height="180" alt="<?php $row1['nama'] ?>">
             </div>

@@ -13,7 +13,13 @@ if (isset($_POST['submit'])) {
 
     $nama_gambar = $_FILES['foto']['name'];
     $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
-    move_uploaded_file($tmp_nama_gambar, '../asset/sertif/' . $nama_gambar);
+
+    // Membuat nama unik dengan menambahkan timestamp
+    $timestamp = time();
+    $nama_gambar_baru = $timestamp . '_' . $nama_gambar;
+
+    move_uploaded_file($tmp_nama_gambar, '../asset/sertif/' . $nama_gambar_baru);
+
 
     // Ambil id_jnskegiatan dari tabel jenis_kegiatan berdasarkan inputan form
     $stmt = $koneksi->prepare("SELECT id_jnskegiatan, nilai_kegiatan FROM jenis_kegiatan WHERE bentuk_kegiatan = ? AND nama_kegiatan = ? AND tingkatan = ?");
@@ -25,11 +31,11 @@ if (isset($_POST['submit'])) {
         // Jika data ditemukan, simpan ke tabel pengajuan
         $row = $result->fetch_assoc();
         $id_jnskegiatan = $row['id_jnskegiatan'];
-        $nilai_kegiatan = $row['nilai_kegiatan'];
+        $nilai_kegiatan = $row['nilai_kegiatan']; 
 
         // Lakukan insert ke tabel pengajuan
         $sql_insert = "INSERT INTO pengajuan (nrp, id_jnskegiatan, nilai, status, tanggal_pengajuan, foto)
-                       VALUES ('$nrp', ?, '$nilai_kegiatan', 0, '$tgl_pengajuan', '$nama_gambar')";
+                       VALUES ('$nrp', ?, '$nilai_kegiatan', 0, '$tgl_pengajuan', '$nama_gambar_baru')";
         $stmt_insert = $koneksi->prepare($sql_insert);
         $stmt_insert->bind_param("s", $id_jnskegiatan);
 

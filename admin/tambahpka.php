@@ -10,10 +10,14 @@
     $email = $_POST['email'];
 
     $nama_gambar = $_FILES['foto']['name'];
-    $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
-    move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar);
+    $timestamp = time();
+    $nama_gambar_baru = $timestamp . '_' . $nama_gambar;
 
-    $querySQL = "INSERT INTO pka(nama,jabatan,username,alamat,password,tgl_lahir,email,foto) VALUES ('$nama','$jabatan','$username','$alamat','$password','$tgl_lahir','$email','$nama_gambar')";
+    $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
+
+    move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar_baru);
+
+    $querySQL = "INSERT INTO pka(nama,jabatan,username,alamat,password,tgl_lahir,email,foto) VALUES ('$nama','$jabatan','$username','$alamat','$password','$tgl_lahir','$email','$nama_gambar_baru')";
 
     try {
         $hasil = $koneksi->query($querySQL);

@@ -12,8 +12,35 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $alamat = $_POST['alamat'];
     $username = $_POST['username'];
-   
-    $querySQL = "UPDATE pka SET nama = '$nama', email = '$email', alamat ='$alamat', username ='$username' WHERE idpka = '$id'";
+
+    $nama_gambar = $_FILES['foto']['name'];
+    $timestamp = time();
+    $nama_gambar_baru = $timestamp . '_' . $nama_gambar;
+
+    $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
+
+    move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar_baru);
+
+    $fotoLama = $_POST['fotoLama'];
+
+    if ($nama_gambar_baru) {
+        // Periksa apakah foto lama ada di direktori
+        $fotoPath = '../asset/foto/pka/' . $fotoLama;
+        if (file_exists($fotoPath)) {
+            // Hapus foto lama jika ada
+            unlink($fotoPath);
+        }
+
+        // Buat query untuk update dengan foto baru
+        move_uploaded_file($tmp_nama_gambar,'../asset/foto/mhs/'.$nama_gambar_baru);
+        
+        $querySQL = "UPDATE pka SET nama = '$nama', email = '$email', alamat ='$alamat', username ='$username', foto = '$nama_gambar_baru' WHERE idpka = '$id'";
+
+    } else {
+        // Buat query untuk update tanpa mengubah foto
+        $querySQL = "UPDATE pka SET nama = '$nama', email = '$email', alamat ='$alamat', username ='$username' WHERE idpka = '$id'";
+          }
+          
     $hasil = $koneksi->query($querySQL);
     echo "<script type='text/javascript'>
                   window.onload = function () {

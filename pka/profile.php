@@ -115,7 +115,7 @@ include "role.php"
             <div>
               <div class="bg-body rounded-3 shadow-lg mb-4 p-4 d-flex">
                 <div class="d-flex align-items-center mb-4">
-                  <img src="../asset/foto/pka/<?php echo $row1['foto']?>" class="rounded-circle me-3" width="180" height="180" alt="Admin">
+                  <img src="../asset/foto/pka/<?php echo $row1['foto']?>" class="rounded-circle me-3" width="180" height="180" alt="PKA">
                 </div>
 
                 <div>

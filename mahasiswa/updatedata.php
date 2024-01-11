@@ -137,14 +137,11 @@ if (isset($_POST['submit'])) {
 
             <div>
               <form class="border-bottom pb-3 pb-lg-4" method="post" action="" enctype="multipart/form-data">
+                <input type="hidden" class="form-control form-control-lg" name="nrp" id="nrp" value="<?php echo $row1['nrp'] ?>">
                 <div class="row pb-2">
-                  <div class="col-sm-6 mb-4">
+                  <div class="col-sm-12 mb-4">
                     <label for="nama" class="form-label fs-base">Nama Lengkap</label>
                     <input type="text" class="form-control form-control-lg" name="nama" id="nama" value="<?php echo $row1['nama'] ?>">
-                  </div>
-                  <div class="col-sm-6 mb-4">
-                    <label for="nrp" class="form-label fs-base">NRP</label>
-                    <input type="text" class="form-control form-control-lg" name="nrp" id="nrp" value="<?php echo $row1['nrp'] ?>">
                   </div>
                   <div class="col-sm-6 mb-4">
                     <label for="email" class="form-label fs-base">Email address</label>

@@ -22,9 +22,11 @@ if (isset($_POST['submit'])) {
               echo '<script type="text/javascript">
                 window.onload = function () {
                   $("#successModal").modal("show");
+                  setTimeout(function(){
+                    window.location.href = "profilmahasiswa.php";
+                  }, 2000);
                 }
               </script>';
-              header("Refresh: 2; url=profilmahasiswa.php");
           }      
       } else {
           // Jika password baru dan konfirmasi password tidak cocok, tampilkan modal error
@@ -47,7 +49,6 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -148,7 +149,7 @@ if (isset($_POST['submit'])) {
                     <br>
                   </div>
                   <div class="d-flex mb-3">
-                      <a href="Profilmahasiswa.php" class="btn btn-primary me-4" role="Button">Kembali</a>
+                      <a href="profilmahasiswa.php" class="btn btn-primary me-4" role="Button">Kembali</a>
                     <button type="submit" name="submit" class='btn btn-danger' role='button'>Ganti Password</button>
                   </div>
                 </div>

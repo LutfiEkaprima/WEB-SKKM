@@ -39,6 +39,6 @@ if ($nama_gambar) {
 }
 
 $hasil = $koneksi->query($querySQL);
-
+sleep(2);
 header('Location: datamahasiswa.php');
 ?>

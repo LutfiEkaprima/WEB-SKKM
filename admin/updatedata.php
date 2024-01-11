@@ -15,13 +15,14 @@ if (isset($_POST['submit'])) {
    
     $querySQL = "UPDATE admin SET nama = '$nama', email = '$email', nohp ='$nohp', username ='$username' WHERE idadmin = '$id'";
     $hasil = $koneksi->query($querySQL);
-    echo '<script type="text/javascript">
+    echo "<script type='text/javascript'>
                   window.onload = function () {
-                    $("#successModal").modal("show");
+                    $('#successModal').modal('show');
+                    setTimeout(function(){
+                      window.location.href = 'profile.php?username=$username';
+                    }, 2000);
                   }
-                </script>';
-
-    header("Refresh: 2; url=profile.php?username=$username");
+                </script>";
 }
 
 ?>

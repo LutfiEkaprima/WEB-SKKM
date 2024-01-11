@@ -112,7 +112,7 @@ $rowsql = $resultsql->fetch_assoc();
     <div class="d-flex flex-column w-100">
 
       <div class="d-flex flex-column p-5">
-          <img src="../asset/sertif/<?php echo $rowsql['foto']?>" alt="Tidak ada gambar">
+          <img src="../asset/sertif/<?php echo $rowsql['foto']?>" alt="Tidak ada gambar" width="500" height="500">
           <br>
           <div>
               <a class='btn btn-success' role='button' href='pengajuan.php'>Kembali</a>

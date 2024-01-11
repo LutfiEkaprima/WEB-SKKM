@@ -22,9 +22,11 @@ if (isset($_POST['submit'])) {
                 echo '<script type="text/javascript">
                   window.onload = function () {
                     $("#successModal").modal("show");
+                    setTimeout(function(){
+                      window.location.href = "profile.php";
+                    }, 2000);
                   }
                 </script>';
-                header("Refresh: 2; url=profile.php");
             }      
         } else {
             // Jika password baru dan konfirmasi password tidak cocok, tampilkan modal error
@@ -93,7 +95,7 @@ if (isset($_POST['submit'])) {
   <div class="isi-content">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height: 100vh;">
       <div class="side-judul">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
           </svg>
@@ -170,7 +172,7 @@ if (isset($_POST['submit'])) {
                     <br>
                   </div>
                   <div class="d-flex mb-3">
-                      <a href="Profile.php" class="btn btn-primary me-4" role="Button">Kembali</a>
+                      <a href="profile.php" class="btn btn-primary me-4" role="Button">Kembali</a>
                     <button type="submit" name="submit" class='btn btn-danger' role='button'>Ganti Password</button>
                   </div>
                 </div>

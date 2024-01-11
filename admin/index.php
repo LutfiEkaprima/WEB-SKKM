@@ -17,7 +17,7 @@ include "../koneksi.php";
     <link rel="stylesheet" href="asset/style/style.css">
 </head>
 
-<body>
+<body class="d-md-block">
   <nav class="navbar" style="background-color: #e3f2fd;">
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
@@ -209,7 +209,7 @@ include "../koneksi.php";
                         Jumlah Pengajuan</div>
                       <div class="text-lg fw-bold fs-3">
                         <?php
-                          $querySQL = "SELECT COUNT(*) as total FROM Pengajuan";
+                          $querySQL = "SELECT COUNT(*) as total FROM pengajuan";
                           $result = $koneksi->query($querySQL);
                           $row = $result->fetch_assoc();
                           $totalData = $row['total'];
@@ -259,7 +259,7 @@ include "../koneksi.php";
         </div>
       </div>
       
-      <div class="footer mt-auto mb-1 bg-body-tertiary">
+      <div class="footer mt-auto mb-1">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
           <div class="footer-content">
             <div class="col-md-4 px-2 d-flex align-items-center">

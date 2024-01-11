@@ -62,8 +62,10 @@ if($op == "setuju"){
           window.onload = function () {
             $("#successModal").modal("show");
           }
+          setTimeout(function(){
+            window.location.href = "pengajuan.php";
+          }, 2000);
         </script>';
-  header("Refresh: 1; URL=pengajuan.php");
 
 } else if($op == "tolak"){
   $id = $_GET['id'];
@@ -72,9 +74,11 @@ if($op == "setuju"){
   echo '<script type="text/javascript">
           window.onload = function () {
             $("#tolakModal").modal("show");
+            setTimeout(function(){
+              window.location.href = "pengajuan.php";
+            }, 2000);
           }
         </script>';
-  header("Refresh: 1; URL=pengajuan.php");
 }
 
 

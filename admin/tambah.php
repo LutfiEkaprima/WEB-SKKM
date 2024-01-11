@@ -23,10 +23,11 @@
         if(!$hasil) {
             throw new Exception("Terjadi kesalahan. Data tidak dapat disimpan.");
         }
-
+        sleep(2);
         header('Location: datamahasiswa.php');
     } catch (Exception $e) {
         echo '<script>alert("' . $e->getMessage() . '");</script>';
-        echo '<script>window.location.href = "create.php";</script>'; 
+        echo '<script>
+        window.location.href = "create.php";</script>'; 
     }
 ?>

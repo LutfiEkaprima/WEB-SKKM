@@ -29,7 +29,7 @@ include "role.php";
   <div class="isi-content">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px; height: auto; min-height:100vh;">
       <div class="side-judul">
-        <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" fill="currentColor" class="bi bi-house me-2" viewBox="0 0 16 16">
             <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
           </svg>
@@ -103,7 +103,6 @@ include "role.php";
                     <h5 class='card-title'>". $row['nama_kegiatan'] ."</h5>
                     <p class='card-text'>Bentuk Kegiatan : ". $row['bentuk_kegiatan'] ."</p> 
                     <p class='card-text'>Tingkatan : ". $row['tingkatan'] ."</p>
-                    <a href='#' class='btn btn-primary'>Go somewhere</a>
                   </div>
                 </div>
               </div>
@@ -116,7 +115,7 @@ include "role.php";
         ?>
       </div>
 
-      <div class="footer mt-auto mb-1 bg-body-tertiary">
+      <div class="footer mt-auto mb-1">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
           <div class="footer-content">
             <div class="col-md-4 px-2 d-flex align-items-center">

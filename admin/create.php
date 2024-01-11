@@ -33,15 +33,15 @@ include "role.php";
     <form class="form-data1" method="post" action="tambah.php" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="nrp" class="form-label">NRP</label>
-            <input type="text" name="nrp" class="form-control" id="nrp" placeholder="NRP">
+            <input type="text" required="Masukkan NRP!" name="nrp" class="form-control" id="nrp" placeholder="NRP" >
         </div>
         <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>
-            <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama">
+            <input type="text" required="" name="nama" class="form-control" id="nama" placeholder="Nama">
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+            <input type="email" required="" name="email" class="form-control" id="email" placeholder="Email">
         </div>
         <div class="mb-3">
             <label for="nama" class="form-label">Jurusan</label>
@@ -93,7 +93,8 @@ include "role.php";
             <input type="file" name="foto" class="form-control" id="foto" placeholder="Foto">
         </div>
         <div class="col-12">
-            <button class="btn btn-primary" type="submit">Submit form</button>
+            <button class="btn btn-primary me-3" type="submit">Submit form</button>
+            <a class='btn btn-primary' role='button' href='datamahasiswa.php'>Kembali</a>
         </div>
     </form>
 

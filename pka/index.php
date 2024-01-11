@@ -203,7 +203,7 @@ include "../koneksi.php";
                         Jumlah Pengajuan</div>
                       <div class="text-lg fw-bold fs-3">
                         <?php
-                          $querySQL = "SELECT COUNT(*) as total FROM Pengajuan";
+                          $querySQL = "SELECT COUNT(*) as total FROM pengajuan";
                           $result = $koneksi->query($querySQL);
                           $row = $result->fetch_assoc();
                           $totalData = $row['total'];

@@ -12,6 +12,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $alamat = $_POST['alamat'];
     $username = $_POST['username'];
+    $fotoLama = $_POST['fotoLama'];
 
     $nama_gambar = $_FILES['foto']['name'];
     $timestamp = time();
@@ -19,9 +20,6 @@ if (isset($_POST['submit'])) {
 
     $tmp_nama_gambar = $_FILES['foto']['tmp_name'];
 
-    move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar_baru);
-
-    $fotoLama = $_POST['fotoLama'];
 
     if ($nama_gambar_baru) {
         // Periksa apakah foto lama ada di direktori
@@ -32,15 +30,15 @@ if (isset($_POST['submit'])) {
         }
 
         // Buat query untuk update dengan foto baru
-        move_uploaded_file($tmp_nama_gambar,'../asset/foto/mhs/'.$nama_gambar_baru);
+        move_uploaded_file($tmp_nama_gambar,'../asset/foto/pka/'.$nama_gambar_baru);
         
         $querySQL = "UPDATE pka SET nama = '$nama', email = '$email', alamat ='$alamat', username ='$username', foto = '$nama_gambar_baru' WHERE idpka = '$id'";
 
     } else {
         // Buat query untuk update tanpa mengubah foto
         $querySQL = "UPDATE pka SET nama = '$nama', email = '$email', alamat ='$alamat', username ='$username' WHERE idpka = '$id'";
-          }
-          
+    }
+
     $hasil = $koneksi->query($querySQL);
     echo "<script type='text/javascript'>
                   window.onload = function () {
@@ -169,7 +167,7 @@ if (isset($_POST['submit'])) {
                     <div class="col-sm-12 mb-4">
                       <label for="fotoLama" class="form-label fs-base">Foto</label>
                       <br>
-                      <input type="file" class="form-control form-control-lg" name="foto" id="foto" value="<?php echo $row1['foto'] ?>"></td>
+                      <input type="file" class="form-control form-control-lg" name="foto" id="foto" value="<?php echo $row1['foto'] ?>">
                       <input type="hidden" class="form-control form-control-lg" name="fotoLama" value="<?php echo $row1['foto'] ?>">
                     </div>
 
